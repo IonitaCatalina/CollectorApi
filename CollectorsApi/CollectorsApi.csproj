@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Photos\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\PatternsController.cs" />
+    <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -146,9 +148,14 @@
     <Compile Include="Migrations\201705112028388_v0.Designer.cs">
       <DependentUpon>201705112028388_v0.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705142010181_v1.cs" />
+    <Compile Include="Migrations\201705142010181_v1.Designer.cs">
+      <DependentUpon>201705142010181_v1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Pattern.cs" />
     <Compile Include="Models\PatternsContext.cs" />
+    <Compile Include="Models\Photo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +188,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705112028388_v0.resx">
       <DependentUpon>201705112028388_v0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705142010181_v1.resx">
+      <DependentUpon>201705142010181_v1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

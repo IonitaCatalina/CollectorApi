@@ -1,6 +1,5 @@
 ﻿using CollectorsApi.Models;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web.Http;
 
@@ -23,6 +22,7 @@ namespace CollectorsApi.Controllers
 
         public IHttpActionResult Post([FromBody]Pattern pattern)
         {
+         
             if (ModelState.IsValid && !db.Patterns.Any(x => x.Id == pattern.Id))
             {
                 db.Patterns.Add(pattern);
@@ -31,19 +31,6 @@ namespace CollectorsApi.Controllers
             }
 
             return BadRequest("The images already exists in the database.");
-        }
-
-        internal static byte[] ReadImageFile(string imageLocation)
-        {
-            byte[] imageData = null;
-            FileInfo fileInfo = new FileInfo(imageLocation);
-            long imageFileLength = fileInfo.Length;
-            FileStream fs = new FileStream(imageLocation, FileMode.Open, FileAccess.Read);
-            BinaryReader br = new BinaryReader(fs);
-            imageData = br.ReadBytes((int)imageFileLength);
-            return imageData;
-        }
-
-       
+        }       
     }
 }

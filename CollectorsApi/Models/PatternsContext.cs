@@ -10,5 +10,6 @@ namespace CollectorsApi.Models
         }
 
         public DbSet<Pattern> Patterns { get; set; }
+        public DbSet<Photo> Photos { get; set; }
     }
 }

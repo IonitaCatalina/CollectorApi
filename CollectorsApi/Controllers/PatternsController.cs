@@ -8,6 +8,7 @@ namespace CollectorsApi.Controllers
 {
     public class PatternsController : ApiController
     {
+        //connect to db
         public PatternsContext db = new PatternsContext();
 
         public IEnumerable<Pattern> Get()

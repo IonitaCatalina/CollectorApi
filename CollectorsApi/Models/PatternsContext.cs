@@ -1,15 +1,22 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace CollectorsApi.Models
 {
-    public class PatternsContext : DbContext
+    public class PatternsContext : IdentityDbContext<User>
     {
         public PatternsContext() : base("name=PatternsContext")
         {
-
+            Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Pattern> Patterns { get; set; }
         public DbSet<Photo> Photos { get; set; }
+
+        public static PatternsContext Create()
+        {
+            return new PatternsContext();
+        }
     }
 }

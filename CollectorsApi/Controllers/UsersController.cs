@@ -30,18 +30,27 @@ namespace CollectorsApi.Controllers
 
         }
 
-        //public async Task<IHttpActionResult> GetUserByName(string username)
-        //{
-        //    var user = await this.AppUserManager.FindByNameAsync(username);
+        [Route("getUserByEmail")]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetUserByEmail(CreateUserBindingModel getUserModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    if (user != null)
-        //    {
-        //        return Ok(this.TheModelFactory.Create(user));
-        //    }
+            var user = await this.AppUserManager.FindByEmailAsync(getUserModel.Email);
 
-        //    return NotFound();
+            if (user != null)
+            {
+                var check = await AppUserManager.FindAsync(user.UserName, getUserModel.Password);
+                if(check != null) return Ok(this.TheModelFactory.Create(user));
+                return BadRequest("Incorrect e-mail or password! ");
+            }
 
-        //}
+            return NotFound();
+
+        }
 
         [Route("create")]
         public async Task<IHttpActionResult> CreateUser(CreateUserBindingModel createUserModel)

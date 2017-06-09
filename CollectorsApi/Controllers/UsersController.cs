@@ -1,7 +1,6 @@
 ﻿using CollectorsApi.Models;
 using CollectorsApi.Models.BindingModels;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,9 +12,19 @@ namespace CollectorsApi.Controllers
     public class UsersController : BaseApiController
     {
         // GET: Users
-        public IHttpActionResult GetUsers()
-        {
-            return Ok(this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u)));
+        public IHttpActionResult GetUsers(string Id)
+        { 
+            var users = this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u));
+            var userroles = new List<UserReturnModel>();
+
+            foreach (var user in users)
+            {
+                foreach (var role in user.Roles)
+                    if (role == Id)
+                        userroles.Add(user);
+            }
+
+            return Ok(userroles);
         }
 
         [Route("user/{id:guid}", Name = "GetUserById")]
@@ -72,7 +81,20 @@ namespace CollectorsApi.Controllers
 
             var addUserResult = await this.AppUserManager.CreateAsync(user, createUserModel.Password);
 
+            var x = Task.Run(async () =>
+            {
+                return await this.AppUserManager.FindByNameAsync(user.UserName);
+            });
 
+            if (createUserModel.RoleName == "Teacher")
+            {
+                await AppUserManager.AddToRoleAsync(x.Result.Id, "Teacher");
+            }
+
+            if (createUserModel.RoleName == "Student")
+            {
+                await AppUserManager.AddToRoleAsync(x.Result.Id, "Student");
+            }
 
             if (!addUserResult.Succeeded)
             {

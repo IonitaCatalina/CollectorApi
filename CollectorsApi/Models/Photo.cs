@@ -7,15 +7,15 @@
         public byte[] Image { get; set; }
 
         //1 creator
-        public int TeacherId { get; set; }
+        public string TeacherId { get; set; }
         public virtual User Teacher { get; set; }
 
         //1 student
-        public int StudentId { get; set; }
+        public string StudentId { get; set; }
         public virtual User Student { get; set; }
 
         //1 pattern
-        public int PatternId { get; set; }
+        public string PatternId { get; set; }
         public virtual Pattern Pattern { get; set; }
 
         //1 grade

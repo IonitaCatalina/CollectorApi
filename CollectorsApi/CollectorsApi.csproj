@@ -194,8 +194,22 @@
     <Compile Include="Migrations\201705271502084_v1.Designer.cs">
       <DependentUpon>201705271502084_v1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706081251159_v2.cs" />
+    <Compile Include="Migrations\201706081251159_v2.Designer.cs">
+      <DependentUpon>201706081251159_v2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706081335146_v3.cs" />
+    <Compile Include="Migrations\201706081335146_v3.Designer.cs">
+      <DependentUpon>201706081335146_v3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706081454576_v4.cs" />
+    <Compile Include="Migrations\201706081454576_v4.Designer.cs">
+      <DependentUpon>201706081454576_v4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AnswerBlock.cs" />
     <Compile Include="Models\BindingModels\CreateUserBindingModel.cs" />
+    <Compile Include="Models\CorrectAnswers.cs" />
     <Compile Include="Models\Grade.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\Pattern.cs" />
@@ -231,6 +245,15 @@
     <EmbeddedResource Include="Migrations\201705271502084_v1.resx">
       <DependentUpon>201705271502084_v1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706081251159_v2.resx">
+      <DependentUpon>201706081251159_v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706081335146_v3.resx">
+      <DependentUpon>201706081335146_v3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706081454576_v4.resx">
+      <DependentUpon>201706081454576_v4.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -250,7 +273,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54098</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://192.168.0.105:90/</IISUrl>
+          <IISUrl>http://192.168.0.104:90/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

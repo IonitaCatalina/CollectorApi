@@ -1,6 +1,8 @@
 ﻿using CollectorsApi.Models;
 using CollectorsApi.Models.BindingModels;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -44,7 +46,7 @@ namespace CollectorsApi.Controllers
             if (user != null)
             {
                 var check = await AppUserManager.FindAsync(user.UserName, getUserModel.Password);
-                if(check != null) return Ok();
+                if(check != null) return Ok(user.Id.ToString());
                 return BadRequest("Incorrect e-mail or password! ");
             }
 
@@ -69,6 +71,8 @@ namespace CollectorsApi.Controllers
             };
 
             var addUserResult = await this.AppUserManager.CreateAsync(user, createUserModel.Password);
+
+
 
             if (!addUserResult.Succeeded)
             {

@@ -1,7 +1,12 @@
-﻿namespace CollectorsApi.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CollectorsApi.Models
 {
     public class Photo
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
         public byte[] Image { get; set; }
@@ -15,11 +20,9 @@
         public virtual User Student { get; set; }
 
         //1 pattern
-        public string PatternId { get; set; }
+        public int PatternId { get; set; }
         public virtual Pattern Pattern { get; set; }
 
-        //1 grade
-        public int GradeId { get; set; }
-        public virtual Grade Grade { get; set; }
+        public int Grade { get; set; }
     }
 }

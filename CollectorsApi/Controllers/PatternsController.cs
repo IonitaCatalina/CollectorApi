@@ -26,7 +26,7 @@ namespace CollectorsApi.Controllers
         public IHttpActionResult Post([FromBody]Pattern pattern)
         {
          
-            if (ModelState.IsValid && !db.Patterns.Any(x => x.Id == pattern.Id))
+            if (ModelState.IsValid)
             {
                 db.Patterns.Add(pattern);
                 db.SaveChanges();

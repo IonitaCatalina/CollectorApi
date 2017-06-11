@@ -4,3 +4,33 @@
 }
 
 <h2>Login</h2>
+
+@section scripts{
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/app/UsersClient.js"></script>
+    <script src="~/Scripts/app/UsersService.js"></script>
+
+}
+
+<div ng-app="UserApp" class="row">
+    <div ng-controller="UsersController">
+        <form>
+            <div class="container">
+                <label><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" required>
+
+                <label><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+
+                <button type="submit">Login</button>
+                <input type="checkbox" checked="checked"> Remember me
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button type="button" class="cancelbtn">Cancel</button>
+                <span class="psw">Forgot <a href="#">password?</a></span>
+            </div>
+        </form>
+
+    </div>
+</div>

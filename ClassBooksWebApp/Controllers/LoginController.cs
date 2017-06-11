@@ -8,5 +8,11 @@ namespace ClassBooksWebApp.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public void SetSession(string id)
+        {
+            Session["UserId"] = id;
+        }
     }
 }

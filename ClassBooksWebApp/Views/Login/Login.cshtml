@@ -3,34 +3,29 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
-
 @section scripts{
     <script src="~/Scripts/angular.js"></script>
     <script src="~/Scripts/app/UsersClient.js"></script>
     <script src="~/Scripts/app/UsersService.js"></script>
+    <link href="~/Content/Login.css" rel="stylesheet" />
 
 }
 
 <div ng-app="UserApp" class="row">
     <div ng-controller="UsersController">
-        <form>
-            <div class="container">
-                <label><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="uname" required>
-
-                <label><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
-
-                <button type="submit">Login</button>
-                <input type="checkbox" checked="checked"> Remember me
-            </div>
-
-            <div class="container" style="background-color:#f1f1f1">
-                <button type="button" class="cancelbtn">Cancel</button>
-                <span class="psw">Forgot <a href="#">password?</a></span>
-            </div>
-        </form>
+        <!--taken from https://codepen.io/ace-subido/pen/Cuiep -->
+        <div class="wrapper">
+            <form class="form-signin">
+                <h2 class="form-signin-heading">Please login</h2>
+                <input type="text" class="form-control" name="username" ng-model="user.email" placeholder="Email Address" required="" autofocus="" />
+                <input type="password" class="form-control" name="password" ng-model="user.password" placeholder="Password" required="" />
+                <label class="checkbox">
+                    <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
+                </label>
+                <button ng-click="Login()" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+            </form>
+        </div>
 
     </div>
 </div>
+

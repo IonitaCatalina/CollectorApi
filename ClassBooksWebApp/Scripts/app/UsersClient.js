@@ -2,8 +2,7 @@
 
 UserApp.controller('UsersController', function ($scope, UsersService) {
 
-   Login();
-   function Login() {
+   $scope.Login = function Login() {
        UsersService.Login()
            .then(function successCallback(response) {
                //set session in web app

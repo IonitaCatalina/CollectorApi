@@ -1,17 +1,18 @@
 ﻿UserApp.factory('UsersService', ['$http', function ($http) {
 
-    var UsersService = {};
-    var urlBase = "http://192.168.0.101:90";
+    var usersService = {};
 
-    var user = JSON.stringify({ "Email": "catalina.ionita@centric.eu", "Password": "Password1!", "ConfirmPassword": "Password1!" });
-
-    UsersService.Login = function () {
-        return $http.post(urlBase + '/api/users/GetUserByEmail', user);
+    usersService.Login = function (userData) {
+        return $http.post('/Login/LoginUser/', userData);
     };
 
-    UsersService.SetSession = function (data) {
-        $http.post('/Login/SetSession/'+data);
+    usersService.Register = function (userData) {
+        return $http.post('/Login/RegisterUser/', userData);
+    };
+
+    usersService.GetSessionId = function (data) {
+        return $http.get('/Login/GetSessionId/');
     }
-    return UsersService;
+    return usersService;
 
 }]);  

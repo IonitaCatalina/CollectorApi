@@ -19,7 +19,7 @@ namespace CollectorsApi.Models
         public string TeacherId { get; set; }
         public virtual User Teacher { get; set; }
 
-        public virtual IEnumerable<Photo> TestPhotos { get; set; }
-        public virtual IEnumerable<AnswerBlock> AnswerBlocks { get; set; }
+        public virtual ICollection<Photo> TestPhotos { get; set; }
+        public virtual ICollection<AnswerBlock> AnswerBlocks { get; set; }
     }
 }

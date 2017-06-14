@@ -7,9 +7,9 @@ namespace CollectorsApi.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string ClassName { get; set; }
 
-        public virtual IEnumerable<Pattern> Patterns { get; set; }
-        public virtual IEnumerable<Photo> Tests { get; set; }
+        public virtual ICollection<Pattern> Patterns { get; set; }
+        public virtual ICollection<Photo> Tests { get; set; }
+        public virtual ICollection<ClassBook> ClassBooks { get; set; }
     }
 }

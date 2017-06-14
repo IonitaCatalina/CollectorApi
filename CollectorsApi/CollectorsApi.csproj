@@ -171,7 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\" />
+    <Folder Include="Views\ClassBook\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -179,6 +179,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\ClassBooksController.cs" />
     <Compile Include="Controllers\PatternsController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -214,9 +215,27 @@
     <Compile Include="Migrations\201706101107384_v6.Designer.cs">
       <DependentUpon>201706101107384_v6.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706141206226_v7.cs" />
+    <Compile Include="Migrations\201706141206226_v7.Designer.cs">
+      <DependentUpon>201706141206226_v7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706141229456_v8.cs" />
+    <Compile Include="Migrations\201706141229456_v8.Designer.cs">
+      <DependentUpon>201706141229456_v8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706141237268_v9.cs" />
+    <Compile Include="Migrations\201706141237268_v9.Designer.cs">
+      <DependentUpon>201706141237268_v9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706141735053_v10.cs" />
+    <Compile Include="Migrations\201706141735053_v10.Designer.cs">
+      <DependentUpon>201706141735053_v10.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AnswerBlock.cs" />
+    <Compile Include="Models\BindingModels\ClassBookBindingModel.cs" />
     <Compile Include="Models\BindingModels\CreateUserBindingModel.cs" />
+    <Compile Include="Models\ClassBook.cs" />
     <Compile Include="Models\CorrectAnswers.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\Pattern.cs" />
@@ -267,6 +286,18 @@
     <EmbeddedResource Include="Migrations\201706101107384_v6.resx">
       <DependentUpon>201706101107384_v6.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706141206226_v7.resx">
+      <DependentUpon>201706141206226_v7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706141229456_v8.resx">
+      <DependentUpon>201706141229456_v8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706141237268_v9.resx">
+      <DependentUpon>201706141237268_v9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706141735053_v10.resx">
+      <DependentUpon>201706141735053_v10.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -286,7 +317,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54098</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://192.168.0.101:90/</IISUrl>
+          <IISUrl>http://192.168.0.102:90/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

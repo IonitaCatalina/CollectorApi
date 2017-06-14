@@ -13,6 +13,7 @@ namespace CollectorsApi.Models
 
         public DbSet<Pattern> Patterns { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<ClassBook> ClassBooks { get; set; }
 
         public static PatternsContext Create()
         {

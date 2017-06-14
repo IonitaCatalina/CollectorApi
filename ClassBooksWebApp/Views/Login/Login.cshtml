@@ -15,17 +15,40 @@
     <div ng-controller="UsersController">
         <!--taken from https://codepen.io/ace-subido/pen/Cuiep -->
         <div class="wrapper">
-            <form class="form-signin">
+            <table>
+                <tr>
+            <td><form class="form-signin">
                 <h2 class="form-signin-heading">Please login</h2>
-                <input type="text" class="form-control" name="username" ng-model="user.email" placeholder="Email Address" required="" autofocus="" />
-                <input type="password" class="form-control" name="password" ng-model="user.password" placeholder="Password" required="" />
+                <input type="text" class="form-control" name="username" ng-model="Email" placeholder="Email Address" required="" autofocus="" />
+                <input type="password" class="form-control" name="password" ng-model="Password" placeholder="Password" required="" />
                 <label class="checkbox">
                     <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
                 </label>
-                <button ng-click="Login()" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                <button ng-click="LoginUser()" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
             </form>
+                    </td>
+
+                    <td>
+                        <form class="form-signin">
+                            <h2 class="form-signin-heading">Please Register</h2>
+                            <input type="text" class="form-control" name="email" ng-model="emailRegister" placeholder="Email Address" required="" autofocus="" />
+                            <input type="text" class="form-control" name="username" ng-model="usernameRegister" placeholder="Username" required=""/>
+                            <input type="text" class="form-control" name="FirstName" ng-model="FirstName" placeholder="First Name" required="" />
+                            <input type="text" class="form-control" name="LastName" ng-model="LastName" placeholder="Last Name" required="" />
+                            <input type="password" class="form-control" name="password" ng-model="passwordRegister" placeholder="Password" required="" />             
+                            <input type="password" class="form-control" name="confirmPassword" ng-model="confirmPassword" placeholder="Confirm Password" required="" />  
+                            <br />
+                            <div align="center">
+                                <input type="radio" value="Teacher" id="Teacher" ng-model="Role" name="sameGroup"> Teacher   
+                                <input type="radio" value="Student" id="Teacher" ng-model="Role" name="sameGroup"> Student
+                            <br /> </div>
+                            <button ng-click="RegisterUser()" class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+
+                            </form>
+                    </td>
+                    </tr>
+                </table>
         </div>
 
     </div>
 </div>
-

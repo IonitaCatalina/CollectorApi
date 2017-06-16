@@ -18,16 +18,20 @@ namespace CollectorsApi.Controllers
         //get based on created by
         public IEnumerable<ClassBook> Get(string id)
         {
-            return db.ClassBooks.Include("Students").Where(x=>x.TeacherId == id).AsEnumerable();
+            return db.ClassBooks.Include("Students").Where(x=>x.TeacherId == id.Replace("\"", "")).AsEnumerable();
         }
 
         //create
-        public IHttpActionResult Create(ClassBook classBook)
+        [HttpPost]
+        public IHttpActionResult Create([FromBody]ClassBook classBook)
         {
             if (ModelState.IsValid)
             {
                 classBook.Id = Guid.NewGuid().ToString();
+                var teacher = db.Users.FirstOrDefault(x => x.Id == classBook.TeacherId.Replace("\"", ""));
                 db.ClassBooks.Add(classBook);
+                classBook.Teacher = teacher;
+
                 db.SaveChanges();
                 return Ok();
             }

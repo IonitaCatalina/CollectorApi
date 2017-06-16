@@ -5,4 +5,78 @@
 }
 
 <h2>Manage Class Books</h2>
+@section scripts{
+    <script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/app/UsersClient.js"></script>
+<script src="~/Scripts/app/ClassBooksClient.js"></script>
+<script src="~/Scripts/app/ClassBooksService.js"></script>
+<script src="~/Scripts/app/UsersService.js"></script>
+<link href="~/Content/Site.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
+    }
 
+<div ng-app="UserApp" class="row">
+    <div ng-controller="ClassBooksController">
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <input type="text" class="form-control" name="ClassBookName" ng-model="ClassBookName" placeholder="Classbook Name" required="" />
+                    </td>
+                    <td>
+                        <button ng-click="CreateClassBook()" class="btn btn-lg btn-primary btn-block" type="submit">Create Class Book</button>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div>
+            <br />
+
+            <div id="my_nav">
+                <div ng-repeat="x in classBooks" ng-click="SetSectionDetails(x)">
+                    <div id="highlight_choice"> {{ x.Name }} </div>
+                </div>
+            </div>
+
+            <div id="my_section" ng-hide="!students">
+                <h3>{{CatalogueName}}</h3>
+                <div>
+                    <table id="students">
+                        <tr id="students">
+                            <th id="students">Student Name</th>
+                            <th id="students">Email</th>
+                        </tr>
+                        <tr id="students" ng-repeat="student in students" ng-click="GetStudentDetails(student)">
+                            <td id="students">{{ student.FirstName }} {{ student.LastName}} </td>
+                            <td id="students">{{ student.Email}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+            <div id="my_footer">
+            </div>
+        </div>
+
+        <div>
+            <h3>All students</h3>
+            <!--all students that are not in the current catalogue-->
+            <table id="students" ng-hide="!allStudents">
+                <tr id="students">
+                    <th id="students">Student Name</th>
+                    <th id="students">Email</th>
+                </tr>
+                <tr id="students" ng-repeat="newStudent in allStudents">
+                    <td id="students">{{ newStudent.FullName }} </td>
+                    <td id="students">{{ newStudent.Email}}</td>
+                    <td><button ng-click="AddStudent(newStudent)" class="btn btn-lg btn-primary btn-block" type="submit">Add Student</button></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>

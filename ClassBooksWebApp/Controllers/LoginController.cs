@@ -12,7 +12,7 @@ namespace ClassBooksWebApp.Controllers
     public class LoginController : Controller
     {
         HttpClient apiClient = new HttpClient();
-        private string ServiceUrl = "http://192.168.0.102:90/";
+        private string ServiceUrl = "http://localhost:54098";
 
         public ActionResult Login()
         {
@@ -61,14 +61,14 @@ namespace ClassBooksWebApp.Controllers
             return Content("Error on creating user.");
         }
 
-        public async Task<IEnumerable<User>> GetUsersBasedOnRole(string Id)
+        public async Task<JsonResult> GetUsersBasedOnRole(string Id)
         {
-            var response = await apiClient.GetAsync(new Uri(string.Format(ServiceUrl + "{0}", string.Format("/api/users/GetUsers/{0}", Id))));
+            var response = await apiClient.GetAsync(new Uri(string.Format(ServiceUrl + "{0}", string.Format("/api/users/{0}", Id))));
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
                 var items = JsonConvert.DeserializeObject<List<User>>(content);
-                return items;
+                return Json(items, JsonRequestBehavior.AllowGet);
             }
 
             return null;

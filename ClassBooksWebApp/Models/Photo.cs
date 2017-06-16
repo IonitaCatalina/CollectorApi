@@ -8,15 +8,15 @@
 
         //1 creator
         public string TeacherId { get; set; }
-        public virtual User Teacher { get; set; }
+        public User Teacher { get; set; }
 
         //1 student
         public string StudentId { get; set; }
-        public virtual User Student { get; set; }
+        public User Student { get; set; }
 
         //1 pattern
         public int PatternId { get; set; }
-        public virtual Pattern Pattern { get; set; }
+        public Pattern Pattern { get; set; }
 
         public int Grade { get; set; }
     }

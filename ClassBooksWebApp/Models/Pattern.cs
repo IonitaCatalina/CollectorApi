@@ -13,8 +13,8 @@ namespace ClassBooksWebApp.Models
 
 
         public string TeacherId { get; set; }
-        public virtual User Teacher { get; set; }
+        public User Teacher { get; set; }
 
-        public virtual IEnumerable<Photo> TestPhotos { get; set; }
+        public ICollection<Photo> TestPhotos { get; set; }
     }
 }

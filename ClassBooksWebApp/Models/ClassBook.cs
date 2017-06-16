@@ -7,6 +7,9 @@ namespace ClassBooksWebApp.Models
         public string Id { get; set; }
         public string Name { get; set; }
 
-        public IEnumerable<User> Students { get; set; }
+        public string TeacherId { get; set; }
+        public User Teacher { get; set; }
+
+        public ICollection<User> Students { get; set; }
     }
 }

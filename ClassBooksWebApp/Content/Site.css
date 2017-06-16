@@ -22,3 +22,61 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*https://tutorialehtml.com/ro/layouts-in-html/*/
+
+#my_header {
+    background-color: #337AB7;
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+
+#my_nav {
+    line-height: 30px;
+    background-color: #C0E0EE;
+    height: 300px;
+    width: 20%;
+    float: left;
+    padding: 5px;
+}
+
+#my_section {
+    width: 40%;
+    float: left;
+    padding: 10px;
+}
+
+#my_footer {
+    background-color: #337AB7;
+    color: white;
+    clear: right;
+    text-align: center;
+    padding: 5px;
+}
+
+#highlight_choice:hover {
+    background-color: cornflowerblue;
+}
+
+#students table {
+    font-family: arial, sans-serif;
+    border-collapse:inherit;
+    width: 100%;
+}
+
+#students td, th {
+    text-align: left;
+    padding: 8px;
+}
+
+#students tr:hover {
+    background-color: cornflowerblue;
+}
+#students tr:nth-child(even):hover {
+    background-color: cornflowerblue;
+}
+
+#students tr:nth-child(even) {
+    background-color: #dddddd;
+}

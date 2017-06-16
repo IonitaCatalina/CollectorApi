@@ -13,6 +13,11 @@
     usersService.GetSessionId = function (data) {
         return $http.get('/Login/GetSessionId/');
     }
+
+    usersService.GetUsersByRole = function (data) {
+        return $http.get('/Login/GetUsersBasedOnRole/' + data);
+    }
+
     return usersService;
 
 }]);  

@@ -48,12 +48,34 @@ namespace CollectorsApi.Controllers
 
             if (student != null && classBook != null)
             {
-                classBook.Students.Add(student);
-                db.SaveChanges();
-                return Ok();
+                if (!classBook.Students.Contains(student))
+                {
+                    classBook.Students.Add(student);
+                    db.SaveChanges();
+                    return Ok(classBook);
+                }
             }
 
-            return BadRequest();
+            return BadRequest("User already exists in the class book");
+        }
+
+        [Route("removeStudent")]
+        public IHttpActionResult RemoveStudentFromClassBook([FromBody]ClassBookBindingModel binding)
+        {
+            var student = db.Users.FirstOrDefault(x => x.Id == binding.StudentId);
+            var classBook = db.ClassBooks.Include("Students").FirstOrDefault(x => x.Id == binding.ClassBookId);
+
+            if (student != null && classBook != null)
+            {
+                if (classBook.Students.Contains(student))
+                {
+                    classBook.Students.Remove(student);
+                    db.SaveChanges();
+                    return Ok(classBook);
+                }
+            }
+
+            return BadRequest("User already exists in the class book");
         }
     }
 }

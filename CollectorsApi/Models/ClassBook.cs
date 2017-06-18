@@ -12,7 +12,7 @@ namespace CollectorsApi.Models
         public string Name { get; set; }
 
         public string TeacherId { get; set; }
-        public User Teacher { get; set; }
+        public virtual User Teacher { get; set; }
 
         public virtual ICollection<User> Students { get; set; }
     }

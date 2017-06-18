@@ -25,7 +25,7 @@
                         <input type="text" class="form-control" name="ClassBookName" ng-model="ClassBookName" placeholder="Classbook Name" required="" />
                     </td>
                     <td>
-                        <button ng-click="CreateClassBook()" class="btn btn-lg btn-primary btn-block" type="submit">Create Class Book</button>
+                        <button ng-click="CreateClassBook()" type="button" class="btn btn-primary btn-sm">Create Class Book</button>
                     </td>
                 </tr>
             </table>
@@ -36,33 +36,36 @@
             <br />
 
             <div id="my_nav">
-                <div ng-repeat="x in classBooks" ng-click="SetSectionDetails(x)">
+                <label>Search for classbook: <input type="text" class="form-control" ng-model="searchText" placeholder="Classbook Name"></label>
+                <div ng-repeat="x in classBooks | orderBy:'Name' | filter:searchText" ng-click="SetSectionDetails(x)">
                     <div id="highlight_choice"> {{ x.Name }} </div>
                 </div>
             </div>
 
-            <div id="my_section" ng-hide="!students">
+            <div id="my_section">
                 <h3>{{CatalogueName}}</h3>
-                <div>
-                    <table id="students">
-                        <tr id="students">
-                            <th id="students">Student Name</th>
-                            <th id="students">Email</th>
-                        </tr>
-                        <tr id="students" ng-repeat="student in students" ng-click="GetStudentDetails(student)">
-                            <td id="students">{{ student.FirstName }} {{ student.LastName}} </td>
-                            <td id="students">{{ student.Email}}</td>
-                        </tr>
-                    </table>
-                </div>
+                <div ng-show="!students">There are no students in this classbook.</div>
+                    <div ng-hide="!students">
+                        <table id="students">
+                            <tr id="students">
+                                <th id="students">Student Name</th>
+                                <th id="students">Email</th>
+                            </tr>
+                            <tr id="students" ng-repeat="student in students | orderBy:'LastName'" ng-click="GetStudentDetails(student)">
+                                <td id="students">{{ student.LastName}} {{ student.FirstName }}</td>
+                                <td id="students">{{ student.Email}}</td>
+                                <td><button ng-click="RemoveStudent(student)" type="button" class="btn btn-primary btn-sm">Remove</button></td>
+                            </tr>
+                        </table>
+                    </div>
 
-            </div>
+                </div>
 
             <div id="my_footer">
             </div>
         </div>
 
-        <div>
+        <div id="my_section">
             <h3>All students</h3>
             <!--all students that are not in the current catalogue-->
             <table id="students" ng-hide="!allStudents">
@@ -70,13 +73,13 @@
                     <th id="students">Student Name</th>
                     <th id="students">Email</th>
                 </tr>
-                <tr id="students" ng-repeat="newStudent in allStudents">
+                <tr id="students" ng-repeat="newStudent in allStudents | orderBy:'FullName'" ng-click="GetStudentDetails(newStudent)">
                     <td id="students">{{ newStudent.FullName }} </td>
                     <td id="students">{{ newStudent.Email}}</td>
-                    <td><button ng-click="AddStudent(newStudent)" class="btn btn-lg btn-primary btn-block" type="submit">Add Student</button></td>
+                    <td><button ng-click="AddStudent(newStudent)" type="button" class="btn btn-primary btn-sm">Add</button></td>
                 </tr>
             </table>
 
         </div>
-    </div>
+        <hr>
 </div>

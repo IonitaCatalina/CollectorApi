@@ -13,6 +13,10 @@
     classBookService.AddStudentToClassBook = function (refs) {
         return $http.post('/ClassBook/AddStudentToClassBook/', refs);
     }
+
+    classBookService.RemoveStudent = function (refs) {
+        return $http.post('/ClassBook/RemoveStudent/', refs);
+    };
     return classBookService;
 
 }]);  

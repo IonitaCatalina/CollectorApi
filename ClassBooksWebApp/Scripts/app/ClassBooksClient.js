@@ -3,14 +3,15 @@
 UserApp.controller('ClassBooksController', ['$scope', 'ClassBooksService', 'UsersService', '$window', function ($scope, classBookService, usersService) {
 
     GetClassBooks();
-    $scope.students = null;
-    $scope.allStudents = null;
 
     function GetClassBooks() {       
 
         classBookService.GetClassBooks()
             .then(function successCallback(response) {
                 $scope.classBooks = angular.fromJson(response.data);
+                if ($scope.CatalogueName === undefined && $scope.ClassBookId === undefined) {
+                    $scope.SetSectionDetails($scope.classBooks[0]);
+                }
             }, function errorCallback(response) {
                 $scope.status = "You don't have any class books yet."
             });
@@ -43,13 +44,26 @@ UserApp.controller('ClassBooksController', ['$scope', 'ClassBooksService', 'User
     $scope.AddStudent = function (newStudent) {
 
         if ($scope.selectedCatalogue != null || $scope.selectedCatalogue != 'undefined') {
-            var refs = '{"ClassBookId":"' + $scope.selectedCatalogue + '","StudentId":"' + newStudent.Id + '"}';
+            var refs = {ClassBookId: $scope.selectedCatalogue, StudentId: newStudent.Id };
 
-            classBookService.AddStudentToClassBook(refs)
+            classBookService.AddStudentToClassBook(JSON.stringify(refs))
                 .then(function successCallback(response) {
-                    $scope.Table = response;
-                    GetClassBooks();
+                    $scope.SetSectionDetails(angular.fromJson(response.data));                   
                 }, function errorCallback(response) {
+                    $window.alert("Student already exist in the selected classbook!");
+                });
+        }
+    }
+
+    $scope.RemoveStudent = function (student)
+    {
+        if ($scope.selectedCatalogue != null || $scope.selectedCatalogue !== undefined) {
+            var refs = { ClassBookId: $scope.selectedCatalogue, StudentId: student.Id };
+
+            classBookService.RemoveStudent(JSON.stringify(refs))
+                .then(function successCallback(response) {
+                    $scope.SetSectionDetails(angular.fromJson(response.data)); 
+                }, function errorCallback(response) {                   
                 });
         }
     }
@@ -60,9 +74,12 @@ UserApp.controller('ClassBooksController', ['$scope', 'ClassBooksService', 'User
         $scope.selectedCatalogue = classBook.Id;
         if (classBook.Students.length > 0) {
             $scope.students = classBook.Students;
+        } else {
+            $scope.students = undefined;
         }
-        else {
-            $scope.students = null;
-        }
+    }
+
+    $scope.GetStudentDetails = function (student) {
+        $scope.SelectedStudent = student;
     }
 }]);

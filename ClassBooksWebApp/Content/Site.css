@@ -35,7 +35,7 @@ textarea {
 #my_nav {
     line-height: 30px;
     background-color: #C0E0EE;
-    height: 300px;
+    height: 100%;
     width: 20%;
     float: left;
     padding: 5px;

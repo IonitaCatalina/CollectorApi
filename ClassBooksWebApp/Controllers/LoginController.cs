@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using ClassBooksWebApp.Models;
 using Newtonsoft.Json;
+using System.Web.Configuration;
 
 namespace ClassBooksWebApp.Controllers
 {
     public class LoginController : Controller
     {
         HttpClient apiClient = new HttpClient();
-        private string ServiceUrl = "http://localhost:54098";
+        private string ServiceUrl = WebConfigurationManager.AppSettings["apiUrl"];
 
         public ActionResult Login()
         {

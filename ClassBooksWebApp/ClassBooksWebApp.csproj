@@ -150,6 +150,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClassBookBindingModel.cs" />
     <Compile Include="Models\ClassBook.cs" />
     <Compile Include="Models\Pattern.cs" />
     <Compile Include="Models\Photo.cs" />
@@ -1044,6 +1045,7 @@
     <Content Include="Views\ClassBook\Index.cshtml" />
     <Content Include="Views\Patterns\Index.cshtml" />
     <Content Include="Views\Shared\_LoggedLayout.cshtml" />
+    <Content Include="Views\Login\Users.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

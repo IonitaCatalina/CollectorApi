@@ -147,6 +147,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PatternsController.cs" />
+    <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -154,6 +155,7 @@
     <Compile Include="Models\ClassBook.cs" />
     <Compile Include="Models\Pattern.cs" />
     <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\PhotoBindingModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1045,7 +1047,6 @@
     <Content Include="Views\ClassBook\Index.cshtml" />
     <Content Include="Views\Patterns\Index.cshtml" />
     <Content Include="Views\Shared\_LoggedLayout.cshtml" />
-    <Content Include="Views\Login\Users.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

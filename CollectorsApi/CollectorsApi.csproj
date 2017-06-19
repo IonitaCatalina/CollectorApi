@@ -230,6 +230,10 @@
     <Compile Include="Migrations\201706141735053_v10.Designer.cs">
       <DependentUpon>201706141735053_v10.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706191335537_v11.cs" />
+    <Compile Include="Migrations\201706191335537_v11.Designer.cs">
+      <DependentUpon>201706191335537_v11.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AnswerBlock.cs" />
     <Compile Include="Models\BindingModels\ClassBookBindingModel.cs" />
@@ -297,6 +301,9 @@
     <EmbeddedResource Include="Migrations\201706141735053_v10.resx">
       <DependentUpon>201706141735053_v10.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706191335537_v11.resx">
+      <DependentUpon>201706191335537_v11.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -316,7 +323,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54098</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://192.168.0.100:90/</IISUrl>
+          <IISUrl>http://192.168.0.103:90/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

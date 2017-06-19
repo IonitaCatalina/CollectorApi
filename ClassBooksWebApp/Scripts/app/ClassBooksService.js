@@ -17,6 +17,15 @@
     classBookService.RemoveStudent = function (refs) {
         return $http.post('/ClassBook/RemoveStudent/', refs);
     };
+
+    classBookService.GetPhotos = function (student) {
+        return $http.post('/students/GetUserPhotos/', student);
+    };
+    classBookService.GetPhoto = function (id) {
+        return $http.post('/students/GetPhoto/'+ id);
+    };
+
+
     return classBookService;
 
 }]);  

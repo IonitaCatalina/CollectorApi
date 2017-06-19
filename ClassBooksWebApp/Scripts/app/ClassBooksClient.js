@@ -1,10 +1,11 @@
 ﻿var UserApp = angular.module('UserApp', [])
 
-UserApp.controller('ClassBooksController', ['$scope', 'ClassBooksService', 'UsersService', '$window', function ($scope, classBookService, usersService) {
+UserApp.controller('ClassBooksController', ['$rootScope', '$scope', 'ClassBooksService', 'UsersService', '$window', function ($rootScope, $scope, classBookService, usersService) {
 
+    $scope.showStudent = false;
     GetClassBooks();
 
-    function GetClassBooks() {       
+    function GetClassBooks() {
 
         classBookService.GetClassBooks()
             .then(function successCallback(response) {
@@ -20,7 +21,7 @@ UserApp.controller('ClassBooksController', ['$scope', 'ClassBooksService', 'User
     GetStudents();
     function GetStudents() {
         usersService.GetUsersByRole('Student')
-            .then(function successCallback(response) {   
+            .then(function successCallback(response) {
                 $scope.allStudents = angular.fromJson(response.data);
             }, function errorCallback(response) {
                 $scope.status = "You don't have any class books yet."
@@ -44,32 +45,30 @@ UserApp.controller('ClassBooksController', ['$scope', 'ClassBooksService', 'User
     $scope.AddStudent = function (newStudent) {
 
         if ($scope.selectedCatalogue != null || $scope.selectedCatalogue != 'undefined') {
-            var refs = {ClassBookId: $scope.selectedCatalogue, StudentId: newStudent.Id };
+            var refs = { ClassBookId: $scope.selectedCatalogue, StudentId: newStudent.Id };
 
             classBookService.AddStudentToClassBook(JSON.stringify(refs))
                 .then(function successCallback(response) {
-                    $scope.SetSectionDetails(angular.fromJson(response.data));                   
+                    $scope.SetSectionDetails(angular.fromJson(response.data));
                 }, function errorCallback(response) {
                     $window.alert("Student already exist in the selected classbook!");
                 });
         }
     }
 
-    $scope.RemoveStudent = function (student)
-    {
+    $scope.RemoveStudent = function (student) {
         if ($scope.selectedCatalogue != null || $scope.selectedCatalogue !== undefined) {
             var refs = { ClassBookId: $scope.selectedCatalogue, StudentId: student.Id };
 
             classBookService.RemoveStudent(JSON.stringify(refs))
                 .then(function successCallback(response) {
-                    $scope.SetSectionDetails(angular.fromJson(response.data)); 
-                }, function errorCallback(response) {                   
+                    $scope.SetSectionDetails(angular.fromJson(response.data));
+                }, function errorCallback(response) {
                 });
         }
     }
 
-    $scope.SetSectionDetails = function(classBook)
-    {
+    $scope.SetSectionDetails = function (classBook) {
         $scope.CatalogueName = classBook.Name;
         $scope.selectedCatalogue = classBook.Id;
         if (classBook.Students.length > 0) {
@@ -80,6 +79,44 @@ UserApp.controller('ClassBooksController', ['$scope', 'ClassBooksService', 'User
     }
 
     $scope.GetStudentDetails = function (student) {
-        $scope.SelectedStudent = student;
+        $scope.showStudent = true;
+        GetUserPhotos(student);
+        $scope.SelectedStudentName = student.Email;
     }
+
+    $scope.BackButton = function () {
+        $scope.showStudent = false;
+    }
+
+    function GetUserPhotos(student) {
+        classBookService.GetPhotos(JSON.stringify(student))
+            .then(function successCallback(response) {
+                $scope.photos = angular.fromJson(response.data);
+             
+            }, function errorCallback(response) {
+            });
+    }
+
+    $scope.GetPhoto = function (photo) {
+
+        classBookService.GetPhoto(photo)
+            .then(function successCallback(response) {
+                $scope.studentImageName = angular.fromJson(response.data).Name;
+                $scope.studentImage = _arrayBufferToBase64(angular.fromJson(response.data).Image);
+
+            }, function errorCallback(response) {
+            });
+    }
+
+    //$scope.image = _arrayBufferToBase64(student.Image);
+    function _arrayBufferToBase64(buffer) {
+        var binary = '';
+        var bytes = new Uint8Array(buffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
+    }
+
 }]);

@@ -35,5 +35,18 @@ namespace CollectorsApi.Controllers
 
             return BadRequest("The images already exists in the database.");
         }
+
+        public IHttpActionResult AddAnswerBlock([FromBody]Pattern pattern)
+        {
+            if (ModelState.IsValid)
+            {
+
+                db.Patterns.Add(pattern);
+                db.SaveChanges();
+                return Ok();
+            }
+
+            return BadRequest("The images already exists in the database.");
+        }
     }
 }

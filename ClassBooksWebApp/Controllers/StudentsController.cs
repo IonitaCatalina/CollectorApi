@@ -2,12 +2,13 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 
 namespace ClassBooksWebApp.Controllers
 {
@@ -17,7 +18,7 @@ namespace ClassBooksWebApp.Controllers
         private readonly string _serviceUrl = WebConfigurationManager.AppSettings["apiUrl"];
 
         public ActionResult Index()
-        {
+        { 
             if (Session["UserId"] == null) return View("~/Views/Login/Login.cshtml");
             
             return View();
@@ -44,6 +45,11 @@ namespace ClassBooksWebApp.Controllers
             {
                 var content = await response.Content.ReadAsStringAsync();
                 var deserializedContent = JsonConvert.DeserializeObject<Photo>(content);
+
+                using (Image image = Image.FromStream(new MemoryStream(deserializedContent.Image)))
+                {
+                    image.Save(@"C:\Users\Chupachups\Desktop\output.jpg", ImageFormat.Jpeg);
+                }
 
                 return Json(deserializedContent, JsonRequestBehavior.AllowGet);
             }

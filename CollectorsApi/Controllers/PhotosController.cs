@@ -1,9 +1,9 @@
 ﻿using CollectorsApi.Models;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Web;
 using System.Web.Http;
 
 namespace CollectorsApi.Controllers
@@ -17,6 +17,9 @@ namespace CollectorsApi.Controllers
         [Route("~/api/user/{id:guid}/photos")]
         public IEnumerable<Photo> Get(string id)
         {
+
+            var test = Main.GetTestScore(Image.FromFile(HttpContext.Current.Server.MapPath("~/omrtemp/testImage.jpg")));
+
             var photos = db.Photos.Include("Student").Where(x => x.StudentId == id) as IEnumerable<Photo>;
 
             foreach (var photo in photos)
@@ -44,8 +47,11 @@ namespace CollectorsApi.Controllers
 
         public IHttpActionResult Post([FromBody]Photo photo)
         {
-            if (ModelState.IsValid && !db.Photos.Any(x => x.Id == photo.Id))
+            if (ModelState.IsValid)
             {
+                photo.Grade = 0; // add grade
+                //photo.StudentId = "70eb4029-587a-4069-a68a-15b367032a15";
+                //photo.PatternId = 2;
                 db.Photos.Add(photo);
                 db.SaveChanges();
                 return Ok();

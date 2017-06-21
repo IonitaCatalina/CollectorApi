@@ -242,3 +242,4 @@ ModelManifest.xml
 .fake/
 /CollectorsApi/CollectorApi/
 /ClassBooksWebApp/bower_components/bourbon
+/TestProcessor

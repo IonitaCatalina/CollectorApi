@@ -10,6 +10,7 @@ namespace CollectorsApi.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(CollectorsApi.Models.PatternsContext context)

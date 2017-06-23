@@ -13,6 +13,5 @@
         public int FirstQuestionIndex { get; set; }
 
         public int PatternId { get; set; }
-        public virtual Pattern Pattern { get; set; }
     }
 }

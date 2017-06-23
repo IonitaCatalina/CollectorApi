@@ -254,6 +254,22 @@
     <Compile Include="Migrations\201706211949574_v13.Designer.cs">
       <DependentUpon>201706211949574_v13.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706220846141_v14.cs" />
+    <Compile Include="Migrations\201706220846141_v14.Designer.cs">
+      <DependentUpon>201706220846141_v14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706221015595_v15.cs" />
+    <Compile Include="Migrations\201706221015595_v15.Designer.cs">
+      <DependentUpon>201706221015595_v15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706221117023_v16.cs" />
+    <Compile Include="Migrations\201706221117023_v16.Designer.cs">
+      <DependentUpon>201706221117023_v16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706221405108_v17.cs" />
+    <Compile Include="Migrations\201706221405108_v17.Designer.cs">
+      <DependentUpon>201706221405108_v17.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AnswerBlock.cs" />
     <Compile Include="Models\BindingModels\ClassBookBindingModel.cs" />
@@ -262,6 +278,7 @@
     <Compile Include="Models\CorrectAnswers.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\Pattern.cs" />
+    <Compile Include="Models\PatternAnswerSheet.cs" />
     <Compile Include="Models\PatternsContext.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\User.cs" />
@@ -324,6 +341,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706141735053_v10.resx">
       <DependentUpon>201706141735053_v10.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706191335537_v11.resx">
       <DependentUpon>201706191335537_v11.cs</DependentUpon>
@@ -333,6 +351,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706211949574_v13.resx">
       <DependentUpon>201706211949574_v13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706220846141_v14.resx">
+      <DependentUpon>201706220846141_v14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706221015595_v15.resx">
+      <DependentUpon>201706221015595_v15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706221117023_v16.resx">
+      <DependentUpon>201706221117023_v16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706221405108_v17.resx">
+      <DependentUpon>201706221405108_v17.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

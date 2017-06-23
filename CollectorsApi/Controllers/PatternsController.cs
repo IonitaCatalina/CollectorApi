@@ -23,6 +23,12 @@ namespace CollectorsApi.Controllers
             return db.Patterns.Where(x => x.TeacherId == id.ToString());
         }
 
+        [Route("~/api/patterns/{id:int}/answerBlocks")]
+        public Pattern GetPattern(int id)
+        {
+            return db.Patterns.Include("AnswerBlocks").FirstOrDefault(x => x.Id == id);
+        }
+
         public IHttpActionResult Post([FromBody]Pattern pattern)
         {
          
@@ -36,17 +42,40 @@ namespace CollectorsApi.Controllers
             return BadRequest("The images already exists in the database.");
         }
 
-        public IHttpActionResult AddAnswerBlock([FromBody]Pattern pattern)
+        [Route("AddBlock")]
+        public IHttpActionResult AddAnswerBlock([FromBody]Pattern p)
         {
-            if (ModelState.IsValid)
-            {
+            var pattern = db.Patterns.Include("AnswerBlocks").FirstOrDefault(x => x.Id == p.Id);
 
-                db.Patterns.Add(pattern);
-                db.SaveChanges();
+            if (pattern != null)
+            {
+                foreach (var block in p.AnswerBlocks)
+                {
+                    if (!pattern.AnswerBlocks.Contains(block))
+                    {
+                        pattern.AnswerBlocks.Add(block);
+                        db.SaveChanges();
+                        ;
+                    }
+                }
+
                 return Ok();
             }
 
-            return BadRequest("The images already exists in the database.");
+            return BadRequest("User already exists in the class book");
+        }
+
+        [Route("AddSheet")]
+        public IHttpActionResult AddAnswerSheet([FromBody]PatternAnswerSheet aSheet)
+        {
+            var pattern = db.Patterns.FirstOrDefault(x => x.Id == aSheet.PatternId);
+            if (pattern != null)
+            {
+                db.AnswerSheets.Add(aSheet);
+                db.SaveChanges();
+                return Ok();
+            }
+            return BadRequest();
         }
     }
 }

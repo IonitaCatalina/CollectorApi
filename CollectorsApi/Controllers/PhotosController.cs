@@ -17,9 +17,6 @@ namespace CollectorsApi.Controllers
         [Route("~/api/user/{id:guid}/photos")]
         public IEnumerable<Photo> Get(string id)
         {
-
-            var test = Main.GetTestScore(Image.FromFile(HttpContext.Current.Server.MapPath("~/omrtemp/testImage.jpg")));
-
             var photos = db.Photos.Include("Student").Where(x => x.StudentId == id) as IEnumerable<Photo>;
 
             foreach (var photo in photos)
@@ -47,11 +44,15 @@ namespace CollectorsApi.Controllers
 
         public IHttpActionResult Post([FromBody]Photo photo)
         {
+            var inst = new PatternsController();
+            var pattern = inst.GetPattern(photo.PatternId);
+
             if (ModelState.IsValid)
             {
-                photo.Grade = 0; // add grade
-                //photo.StudentId = "70eb4029-587a-4069-a68a-15b367032a15";
-                //photo.PatternId = 2;
+                var testPhoto = db.Photos.FirstOrDefault(x => x.Name == "testImage");
+                var answers = db.AnswerSheets.Where(x => x.PatternId == photo.PatternId && string.IsNullOrEmpty(x.StudentId)).ToList();
+
+                photo.Grade = Main.GetTestScore(pattern, testPhoto, answers);
                 db.Photos.Add(photo);
                 db.SaveChanges();
                 return Ok();

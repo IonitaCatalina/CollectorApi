@@ -11,5 +11,6 @@ namespace CollectorsApi.Models
         public virtual ICollection<Pattern> Patterns { get; set; }
         public virtual ICollection<Photo> Tests { get; set; }
         public virtual ICollection<ClassBook> ClassBooks { get; set; }
+        public virtual ICollection<PatternAnswerSheet> StudentAnswers { get; set; }
     }
 }

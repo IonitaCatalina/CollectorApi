@@ -25,6 +25,8 @@ namespace CollectorsApi.Models
         public string TeacherId { get; set; }
         public virtual User Teacher { get; set; }
 
+        public virtual ICollection<PatternAnswerSheet> AnswerSheet { get; set; }
+
         public virtual ICollection<Photo> TestPhotos { get; set; }
     }
 }

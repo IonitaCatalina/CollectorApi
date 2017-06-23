@@ -22,7 +22,7 @@ namespace CollectorsApi.Helpers
             get
             {
                 //set image from db
-                System.Drawing.Image value = System.Drawing.Image.FromFile(HttpContext.Current.Server.MapPath("~/omrtemp/testImage.jpg"));
+                System.Drawing.Image value = camImg;
                 if (value.Width * value.Height > 10000000)
                 {
                     int maxRes = (int)Math.Round(10D * 1000000D);
@@ -260,6 +260,19 @@ namespace CollectorsApi.Helpers
 
 
             return returnValue;
+        }
+
+        public static int AvgColor(System.Drawing.Image img, int forceZeroBelow)
+        {
+            long total = 0;
+            AForge.Imaging.UnmanagedImage umimg = AForge.Imaging.UnmanagedImage.FromManagedImage(new Bitmap(img));
+            for (int y = 0; y < umimg.Height; y++)
+                for (int x = 0; x < umimg.Width; x++)
+                {
+                    Color c = umimg.GetPixel(x, y);
+                    total += forceZeroBelow > ((c.R + c.G + c.B) / 3) ? 0 : 255;
+                }
+            return (int)((long)total / ((long)umimg.Width * (long)umimg.Height));
         }
     }
 }

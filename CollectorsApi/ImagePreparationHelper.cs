@@ -2,6 +2,7 @@
 using AForge.Imaging;
 using AForge.Imaging.Filters;
 using CollectorsApi.Helpers;
+using CollectorsApi.Models;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -46,7 +47,7 @@ namespace CollectorsApi
             return bmp;
         }
 
-        public static object ExtractPaperFromPrepapred(this Bitmap PreparedImage, System.Drawing.Image originalImage, bool onlyExtractionPoints)
+        public static object ExtractPaperFromPrepapred(this Bitmap PreparedImage, System.Drawing.Image originalImage, bool onlyExtractionPoints, Pattern pattern)
         {
             //The image here will be high contrast, inverted. Flatten Image does this for us. We are hunting for markings and ink on a white paper. White, in logic, means 1. means presence of an object. Which, in our case is background paper, which is converse of an object
             //which also is supposed to be logical 1. means white, means brighter. So, we have inverted the image.
@@ -96,9 +97,9 @@ namespace CollectorsApi
             // this helps filtering out too small and too larger blobs depending upon the size of image.
             //We are blind about what ratio does the target have with the original sheet. This has to be asked from the creator of this sheet. Lets check the user manual i.e. The Access DB created with the sheet
             //Minimum blob to sheet ratio. contains tolerance of upto 40%
-            double minbr = 0.000304; //trebuie setate in baza de date!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! read more about it
+            double minbr = pattern.MinSizeRatio; //trebuie setate in baza de date!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! read more about it
             //maximum blob to sheet ratio. contains tolerance of upto 40%
-            double maxbr = 0.001596;
+            double maxbr = pattern.MaxSizeRatio;
 
             // Store sheet corner locations in this list (in any order) . . . (if anyone is detected )
             List<IntPoint> quad = new List<IntPoint>();

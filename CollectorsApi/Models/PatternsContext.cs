@@ -17,6 +17,7 @@ namespace CollectorsApi.Models
         public DbSet<Resource> Resources { get; set; }
 
         public DbSet<AnswerBlock> AnswerBlocks { get; set; }
+        public DbSet<PatternAnswerSheet> AnswerSheets { get; set; }
 
         public static PatternsContext Create()
         {

@@ -6,3 +6,47 @@
 
 <h2>Patterns</h2>
 
+@section scripts{
+    <script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/app/PatternsClient.js"></script>
+<script src="~/Scripts/app/PatternsService.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+}
+
+<div ng-app="UserApp" class="row">
+    <div ng-controller="PatternsController">
+        <!--tabel cu toate patternurile-->
+    
+        <table>
+            <tr>
+                <td>
+                    <input type="text" class="form-control" name="ClassBookName" ng-model="PatternName" placeholder="Pattern Name" required="" />
+                </td>
+                <td>
+                    <button ng-click="AddPattern()" type="button" class="btn btn-primary btn-sm">Create</button>
+                </td>
+            </tr>
+        </table>
+
+        <table id="students">
+            <tr id="patterns">
+                <th></th>
+                <th id="patterns">Name</th>
+                <th id="patterns">No. of questions</th>
+            </tr>
+            <tr id="patterns" ng-repeat="pattern in patterns | orderBy:'Name'">
+                <td><button ng-click="Edit(pattern)" type="button" class="btn btn-link btn-sm">Edit</button></td>
+                <td id="patterns">{{ pattern.Name }}</td>
+                <td id="patterns">{{ pattern.AnswerSheet.length }}</td>
+                <td><button ng-click="AddQuestions(pattern)" type="button" class="btn btn-default btn-sm">Add Questions</button></td>
+                <td><button ng-click="RemovePattern(pattern.Id)" type="button" class="btn btn-primary btn-sm">Remove</button></td>
+            </tr>
+        </table>
+
+
+
+        <!--form pt un nou pattern. creare > adaugare intrebari si raspunsuri + save button pt answer sheet -->
+        </div>
+</div>

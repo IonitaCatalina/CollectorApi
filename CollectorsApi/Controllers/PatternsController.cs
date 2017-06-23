@@ -20,7 +20,16 @@ namespace CollectorsApi.Controllers
         [Route("~/api/{id:guid}/patterns")]
         public IEnumerable<Pattern> GetPatternsByUser(string id)
         {
-            return db.Patterns.Where(x => x.TeacherId == id.ToString());
+            var patterns = db.Patterns.Include("AnswerSheet").Where(x => x.TeacherId == id);
+
+            foreach (var pattern in patterns)
+            {
+                foreach (var answersheet in pattern.AnswerSheet)
+                {
+                    answersheet.Pattern = null;
+                }    
+            }
+            return patterns;
         }
 
         [Route("~/api/patterns/{id:int}/answerBlocks")]
@@ -29,6 +38,7 @@ namespace CollectorsApi.Controllers
             return db.Patterns.Include("AnswerBlocks").FirstOrDefault(x => x.Id == id);
         }
 
+        [Route("addPattern")]
         public IHttpActionResult Post([FromBody]Pattern pattern)
         {
          
@@ -40,6 +50,20 @@ namespace CollectorsApi.Controllers
             }
 
             return BadRequest("The images already exists in the database.");
+        }
+
+        [Route("~/api/deletePattern/{id:int}")]
+        [HttpPost]
+        public IHttpActionResult DeletePattern(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Patterns.Remove(db.Patterns.FirstOrDefault(x => x.Id == id));
+                db.SaveChanges();
+                return Ok();
+            }
+
+            return BadRequest();
         }
 
         [Route("AddBlock")]
@@ -76,6 +100,13 @@ namespace CollectorsApi.Controllers
                 return Ok();
             }
             return BadRequest();
+        }
+
+        //get answer sheet based on pattern id and is not of student
+        [Route("~/api/pattern/{id:int}/answerSheet")]
+        public IEnumerable<PatternAnswerSheet> GetAnswerSheet(int id)
+        {
+            return db.AnswerSheets.Where(x => x.PatternId == id && x.StudentId == null);           
         }
     }
 }

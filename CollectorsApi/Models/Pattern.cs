@@ -28,5 +28,6 @@ namespace CollectorsApi.Models
         public virtual ICollection<PatternAnswerSheet> AnswerSheet { get; set; }
 
         public virtual ICollection<Photo> TestPhotos { get; set; }
+
     }
 }

@@ -52,9 +52,9 @@
                                 <th id="students">Student Name</th>
                                 <th id="students">Email</th>
                             </tr>
-                            <tr id="students" ng-repeat="student in students | orderBy:'LastName'" ng-click="GetStudentDetails(student)">
-                                <td id="students">{{ student.LastName}} {{ student.FirstName }}</td>
-                                <td id="students">{{ student.Email}}</td>
+                            <tr id="students" ng-repeat="student in students | orderBy:'LastName'">
+                                <td id="students" ng-click="GetStudentDetails(student)">{{ student.LastName}} {{ student.FirstName }}</td>
+                                <td id="students" ng-click="GetStudentDetails(student)">{{ student.Email}}</td>
                                 <td><button ng-click="RemoveStudent(student)" type="button" class="btn btn-primary btn-sm">Remove</button></td>
                             </tr>
                         </table>
@@ -74,9 +74,9 @@
                     <th id="students">Student Name</th>
                     <th id="students">Email</th>
                 </tr>
-                <tr id="students" ng-repeat="newStudent in allStudents | orderBy:'FullName'" ng-click="GetStudentDetails(newStudent)">
-                    <td id="students">{{ newStudent.FullName }} </td>
-                    <td id="students">{{ newStudent.Email}}</td>
+                <tr id="students" ng-repeat="newStudent in allStudents | orderBy:'FullName'">
+                    <td id="students" ng-click="GetStudentDetails(newStudent)">{{ newStudent.FullName }} </td>
+                    <td id="students" ng-click="GetStudentDetails(newStudent)">{{ newStudent.Email}}</td>
                     <td><button ng-click="AddStudent(newStudent)" type="button" class="btn btn-primary btn-sm">Add</button></td>
                 </tr>
             </table>
@@ -93,12 +93,14 @@
 
             <table id="students" style="width: 50%; float:left">
                 <tr>
+                    <th></th>
                     <th id="students">Test Name</th>
                     <th id="students">Test Pattern</th>
                     <th id="students">Grade</th>
                 </tr>
                 <tr id="students" ng-repeat="photo in photos" ng-click="GetPhoto(photo.Id)">
-                    <td id="students">{{photo.Name}} {{photo.Description}}</td>
+                    <td><button ng-click="Edit(photo)" type="button" class="btn btn-link btn-sm">Edit</button></td>
+                    <td id="students">{{photo.Description}}</td>
                     <td id="students">{{photo.Pattern.Name}}</td>
                     <td id="students">{{photo.Grade}}</td>
                     <td><button ng-click="Download(photo)" type="button" class="btn btn-default btn-sm">Download</button></td>
@@ -107,7 +109,7 @@
             </table>
 
             <div style="width: 50%; float:right; padding:20px" >
-                <div align="right">{{studentImageName}}</div>
+                <div align="center">{{studentImageName}}</div>
                 <br/>
                 <img style="padding-left:150px; padding-right:150px; padding-top:60px; padding-bottom:60px" data-ng-src="data:image/png;base64,{{studentImage}}" class="rotate90" />
                 </div>

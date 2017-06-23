@@ -38,6 +38,7 @@ namespace ClassBooksWebApp.Controllers
             return null;
         }
 
+        [HttpGet]
         public async Task<JsonResult> GetPhoto(int id)
         {
             var response = await _apiClient.GetAsync(new Uri(string.Format("{0}/api/user/{1}/photo", _serviceUrl, id)));
@@ -45,11 +46,6 @@ namespace ClassBooksWebApp.Controllers
             {
                 var content = await response.Content.ReadAsStringAsync();
                 var deserializedContent = JsonConvert.DeserializeObject<Photo>(content);
-
-                using (Image image = Image.FromStream(new MemoryStream(deserializedContent.Image)))
-                {
-                    image.Save(@"C:\Users\Chupachups\Desktop\output.jpg", ImageFormat.Jpeg);
-                }
 
                 return Json(deserializedContent, JsonRequestBehavior.AllowGet);
             }

@@ -22,7 +22,11 @@
         return $http.post('/students/GetUserPhotos/', student);
     };
     classBookService.GetPhoto = function (id) {
-        return $http.post('/students/GetPhoto/'+ id);
+        return $http({
+            url: ('/students/GetPhoto/' + id),
+            cache: false,
+            method: 'GET'
+        });
     };
 
 

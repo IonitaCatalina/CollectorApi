@@ -151,6 +151,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AnswerSheet.cs" />
     <Compile Include="Models\ClassBookBindingModel.cs" />
     <Compile Include="Models\ClassBook.cs" />
     <Compile Include="Models\Pattern.cs" />
@@ -199,6 +200,8 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\app\ClassBooksClient.js" />
     <Content Include="Scripts\app\ClassBooksService.js" />
+    <Content Include="Scripts\app\PatternsClient.js" />
+    <Content Include="Scripts\app\PatternsService.js" />
     <Content Include="Scripts\app\UsersClient.js" />
     <Content Include="Scripts\app\UsersService.js" />
     <Content Include="Scripts\bootstrap.js" />

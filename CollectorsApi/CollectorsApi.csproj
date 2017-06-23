@@ -270,6 +270,14 @@
     <Compile Include="Migrations\201706221405108_v17.Designer.cs">
       <DependentUpon>201706221405108_v17.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706231103209_v18.cs" />
+    <Compile Include="Migrations\201706231103209_v18.Designer.cs">
+      <DependentUpon>201706231103209_v18.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706231212249_v19.cs" />
+    <Compile Include="Migrations\201706231212249_v19.Designer.cs">
+      <DependentUpon>201706231212249_v19.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AnswerBlock.cs" />
     <Compile Include="Models\BindingModels\ClassBookBindingModel.cs" />
@@ -363,6 +371,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706221405108_v17.resx">
       <DependentUpon>201706221405108_v17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706231103209_v18.resx">
+      <DependentUpon>201706231103209_v18.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706231212249_v19.resx">
+      <DependentUpon>201706231212249_v19.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -101,7 +101,7 @@ UserApp.controller('ClassBooksController', ['$rootScope', '$scope', 'ClassBooksS
 
         classBookService.GetPhoto(photo)
             .then(function successCallback(response) {
-                $scope.studentImageName = angular.fromJson(response.data).Name;
+                $scope.studentImageName = angular.fromJson(response.data).Description;
                 $scope.studentImage = _arrayBufferToBase64(angular.fromJson(response.data).Image);
 
             }, function errorCallback(response) {

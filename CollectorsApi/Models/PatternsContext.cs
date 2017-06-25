@@ -14,7 +14,6 @@ namespace CollectorsApi.Models
         public DbSet<Pattern> Patterns { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<ClassBook> ClassBooks { get; set; }
-        public DbSet<Resource> Resources { get; set; }
 
         public DbSet<AnswerBlock> AnswerBlocks { get; set; }
         public DbSet<PatternAnswerSheet> AnswerSheets { get; set; }

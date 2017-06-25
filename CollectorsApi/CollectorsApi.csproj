@@ -194,6 +194,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PatternGeneratorHelper.cs" />
     <Compile Include="Helpers\PreprocessingHelper.cs" />
     <Compile Include="ImagePreparationHelper.cs" />
     <Compile Include="Main.cs" />
@@ -274,9 +275,9 @@
     <Compile Include="Migrations\201706231103209_v18.Designer.cs">
       <DependentUpon>201706231103209_v18.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706231212249_v19.cs" />
-    <Compile Include="Migrations\201706231212249_v19.Designer.cs">
-      <DependentUpon>201706231212249_v19.cs</DependentUpon>
+    <Compile Include="Migrations\201706241856082_v19.cs" />
+    <Compile Include="Migrations\201706241856082_v19.Designer.cs">
+      <DependentUpon>201706241856082_v19.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AnswerBlock.cs" />
@@ -291,7 +292,6 @@
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\Resource.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -300,7 +300,9 @@
     <Content Include="Media\download.jpg" />
     <Content Include="Media\samurai.jpg" />
     <None Include="Properties\PublishProfiles\test.pubxml" />
+    <Content Include="omrtemp\LC Prints.jpg" />
     <Content Include="omrtemp\lc.jpg" />
+    <Content Include="omrtemp\RC Prints.jpg" />
     <Content Include="omrtemp\rc.jpg" />
     <Content Include="omrtemp\testImage.jpg" />
     <Content Include="Web.config" />
@@ -375,8 +377,8 @@
     <EmbeddedResource Include="Migrations\201706231103209_v18.resx">
       <DependentUpon>201706231103209_v18.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706231212249_v19.resx">
-      <DependentUpon>201706231212249_v19.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706241856082_v19.resx">
+      <DependentUpon>201706241856082_v19.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -397,7 +399,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54098</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://192.168.0.103:90/</IISUrl>
+          <IISUrl>http://192.168.0.103:90</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -13,7 +13,7 @@ namespace CollectorsApi.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201706231212249_v19"; }
+            get { return "201706241856082_v19"; }
         }
         
         string IMigrationMetadata.Source

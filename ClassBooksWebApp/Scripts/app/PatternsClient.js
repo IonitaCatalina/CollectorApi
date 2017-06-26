@@ -44,6 +44,24 @@ UserApp.controller('PatternsController', ['$scope', 'PatternsService', '$window'
                     $scope.status = 'Could not delete the pattern!';
                 });
         }
+
+        $scope.GetImage = function (id) {
+            patternsService.GetPatternImage(id).then(function successCallback(response) {
+                $scope.image = _arrayBufferToBase64(angular.fromJson(response.data).Image);
+            }, function errorCallback(response) {
+                $scope.status = 'Could not delete the pattern!';
+            });
+        };
+
+        function _arrayBufferToBase64(buffer) {
+            var binary = '';
+            var bytes = new Uint8Array(buffer);
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return window.btoa(binary);
+        }
     }
 
 }]);

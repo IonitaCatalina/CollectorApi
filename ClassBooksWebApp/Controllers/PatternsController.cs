@@ -2,6 +2,9 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -32,7 +35,35 @@ namespace ClassBooksWebApp.Controllers
             {
                 var content = await response.Content.ReadAsStringAsync();
                 var items = JsonConvert.DeserializeObject<List<Pattern>>(content);
+
+                foreach (var item in items)
+                {
+                    item.Image = null;
+                }
                 return Json(items, JsonRequestBehavior.AllowGet);
+            }
+
+            return null;
+        }
+
+        public async Task<JsonResult> GetPatternImage(int id)
+        {
+            var response = await _apiClient.GetAsync(new Uri(string.Format(_serviceUrl + "/api/patterns/pattern/{0}", id)));
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var item = JsonConvert.DeserializeObject<Pattern>(content);
+
+                using (var ms = new MemoryStream(item.Image))
+                {
+                    var bmp = new Bitmap(ms);
+
+                    var scaled = new Bitmap(bmp, new Size(578, 839));
+                    item.Image = ToByteArray(scaled, ImageFormat.Jpeg);
+
+                    return Json(item, JsonRequestBehavior.AllowGet);
+                }
             }
 
             return null;
@@ -57,11 +88,6 @@ namespace ClassBooksWebApp.Controllers
         public async Task<HttpStatusCodeResult> AddPattern(Pattern pattern)
         {
             pattern.TeacherId = Session["UserId"].ToString().Replace("\"", "");
-            pattern.Width = 578;
-            pattern.Height = 839;
-
-            pattern.MaxSizeRatio = 0.001596;
-            pattern.MinSizeRatio = 0.000304;
 
             var content = new StringContent(JsonConvert.SerializeObject(pattern), Encoding.UTF8, "application/json");
             var result = await _apiClient.PostAsync(new Uri(string.Format(_serviceUrl + "{0}", "/api/patterns/addPattern")), content);
@@ -75,6 +101,15 @@ namespace ClassBooksWebApp.Controllers
             await _apiClient.PostAsync(new Uri(string.Format(_serviceUrl + "{0}/{1}", "/api/DeletePattern", id)), null);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+        public byte[] ToByteArray(Image image, ImageFormat format)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, format);
+                return ms.ToArray();
+            }
         }
     }
 }

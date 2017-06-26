@@ -1,6 +1,9 @@
-﻿using CollectorsApi.Models;
+﻿using CollectorsApi.Helpers;
+using CollectorsApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Web.Http;
 
@@ -38,12 +41,26 @@ namespace CollectorsApi.Controllers
             return db.Patterns.Include("AnswerBlocks").FirstOrDefault(x => x.Id == id);
         }
 
+        [Route("~/api/patterns/pattern/{id:int}")]
+        public Pattern GetPatternImage(int id)
+        {
+            return db.Patterns.FirstOrDefault(x => x.Id == id);
+        }
+
         [Route("addPattern")]
         public IHttpActionResult Post([FromBody]Pattern pattern)
         {
          
             if (ModelState.IsValid)
             {
+                var image = PatternGeneratorHelper.AddWrapPoints();
+                pattern.Image = image.ToByteArray(ImageFormat.Jpeg);
+
+                pattern.Width = image.Width;
+                pattern.Height = image.Height;
+                pattern.MaxSizeRatio = 0.001596;
+                pattern.MinSizeRatio = 0.000304;
+                
                 db.Patterns.Add(pattern);
                 db.SaveChanges();
                 return Ok();

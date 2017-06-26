@@ -18,7 +18,7 @@
 <div ng-app="UserApp" class="row">
     <div ng-controller="PatternsController">
         <!--tabel cu toate patternurile-->
-    
+        <div>
         <table>
             <tr>
                 <td>
@@ -30,7 +30,7 @@
             </tr>
         </table>
 
-        <table id="students">
+        <table id="students" style="width: 50%; float:left">
             <tr id="patterns">
                 <th></th>
                 <th id="patterns">Name</th>
@@ -38,15 +38,24 @@
             </tr>
             <tr id="patterns" ng-repeat="pattern in patterns | orderBy:'Name'">
                 <td><button ng-click="Edit(pattern)" type="button" class="btn btn-link btn-sm">Edit</button></td>
-                <td id="patterns">{{ pattern.Name }}</td>
-                <td id="patterns">{{ pattern.AnswerSheet.length }}</td>
+                <td id="patterns" ng-click="GetImage(pattern.Id)">{{ pattern.Name }}</td>
+                <td id="patterns" ng-click="GetImage(pattern.Id)">{{ pattern.AnswerSheet.length }}</td>
                 <td><button ng-click="AddQuestions(pattern)" type="button" class="btn btn-default btn-sm">Add Questions</button></td>
                 <td><button ng-click="RemovePattern(pattern.Id)" type="button" class="btn btn-primary btn-sm">Remove</button></td>
             </tr>
         </table>
 
+        <div style="width: 50%; float:right; padding:20px">
+            <div align="center"></div>
+            <br />
+            <img data-ng-src="data:image/png;base64,{{image}}"/>
+        </div>
+
+    </div>
+        </div>
 
 
+    <div>
         <!--form pt un nou pattern. creare > adaugare intrebari si raspunsuri + save button pt answer sheet -->
         </div>
 </div>

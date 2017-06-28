@@ -22,6 +22,9 @@
         return $http.get('/Patterns/GetPatternImage/'+id);
     }
 
+    patternsService.SaveAnswerSheet = function (sheet) {
+        return $http.post('/Patterns/AddAnswerSheet', sheet);
+    };
     return patternsService;
 
 }]);

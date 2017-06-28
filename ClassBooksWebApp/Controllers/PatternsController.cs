@@ -85,6 +85,22 @@ namespace ClassBooksWebApp.Controllers
             return null;
         }
 
+        [HttpPost]
+        public async Task<HttpStatusCodeResult> AddAnswerSheet(List<AnswerSheet> answerSheet)
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(answerSheet), Encoding.UTF8, "application/json");
+            var response = await _apiClient.PostAsync(new Uri(string.Format(_serviceUrl + "{0}", "/api/patterns/AddSheet")), content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+
+
         public async Task<HttpStatusCodeResult> AddPattern(Pattern pattern)
         {
             pattern.TeacherId = Session["UserId"].ToString().Replace("\"", "");

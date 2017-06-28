@@ -20,5 +20,7 @@ namespace ClassBooksWebApp.Models
 
         public ICollection<Photo> TestPhotos { get; set; }
         public ICollection<AnswerSheet> AnswerSheet { get; set; }
+
+        public ICollection<AnswerBlock> AnswerBlocks { get; set; }
     }
 }

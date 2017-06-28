@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Web.Http;
 
@@ -107,12 +108,56 @@ namespace CollectorsApi.Controllers
         }
 
         [Route("AddSheet")]
-        public IHttpActionResult AddAnswerSheet([FromBody]PatternAnswerSheet aSheet)
+        public IHttpActionResult AddAnswerSheet([FromBody]List<PatternAnswerSheet> sheets)
         {
-            var pattern = db.Patterns.FirstOrDefault(x => x.Id == aSheet.PatternId);
+            var patternId = sheets[0].PatternId;
+            var pattern = db.Patterns.Include("AnswerBlocks").FirstOrDefault(x => x.Id == patternId);
+
+            var answerBlock = new AnswerBlock() {
+                PatternId = patternId,
+                AnswerOptionsNumber = 4
+                };
+
             if (pattern != null)
             {
-                db.AnswerSheets.Add(aSheet);
+                var i = 1;
+                if (pattern.AnswerBlocks.Count() != 0)
+                {
+                    i = pattern.AnswerBlocks.Last().FirstQuestionIndex + pattern.AnswerBlocks.Last().Rows;
+
+                    answerBlock.FirstQuestionIndex = i;
+                    answerBlock.Rows = sheets.Count();
+                    answerBlock.CoordinateX = pattern.AnswerBlocks.Last().CoordinateX + 1000;
+                    answerBlock.CoordinateY = 500;
+
+                    var ms = new MemoryStream(pattern.Image);
+                    pattern.Image = PatternGeneratorHelper.AddAnswerBlock(new Bitmap(ms), answerBlock).ToByteArray(ImageFormat.Jpeg);
+
+                    foreach (var sheet in sheets)
+                    {
+                        sheet.QuestionNumber = i;
+                        i++;
+                    }
+                }
+                else
+                {
+                    answerBlock.FirstQuestionIndex = i;
+                    answerBlock.Rows = sheets.Count();
+                    answerBlock.CoordinateX = 500;
+                    answerBlock.CoordinateY = 500;
+
+                    var ms = new MemoryStream(pattern.Image);
+                    pattern.Image = PatternGeneratorHelper.AddAnswerBlock(new Bitmap(ms), answerBlock).ToByteArray(ImageFormat.Jpeg);
+
+                    foreach (var sheet in sheets)
+                    {
+                        sheet.QuestionNumber = i;
+                        i++;
+                    }
+                }
+
+                db.AnswerBlocks.Add(answerBlock);
+                db.AnswerSheets.AddRange(sheets);
                 db.SaveChanges();
                 return Ok();
             }

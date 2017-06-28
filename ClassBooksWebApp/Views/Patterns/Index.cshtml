@@ -18,7 +18,7 @@
 <div ng-app="UserApp" class="row">
     <div ng-controller="PatternsController">
         <!--tabel cu toate patternurile-->
-        <div>
+        <div ng-show="!showPatternDetails">
         <table>
             <tr>
                 <td>
@@ -52,10 +52,65 @@
         </div>
 
     </div>
-        </div>
+
+
+        <div ng-show="showPatternDetails">
+            <button ng-click="Back()" type="button" class="btn btn-primary btn-sm">Back</button>
+            <button ng-click="SaveAnswerSheet(newQuestions)" type="button" class="btn btn-primary btn-sm" style="float:right">Save changes</button>
+            <hr>
+
+           <div ng-show="showQuestionsTable"> 
+            <table id="students" >
+                <tr id="patterns">
+                    <th id="patterns">Question body</th>
+                    <th id="patterns">Correct/Incorrect</th>
+                    <th id="patterns">Answers</th>
+                </tr>
+                <tr id="patterns" ng-repeat="question in questions | orderBy:'Name'">
+                    <td id="patterns" ng-click="">{{ question.Question }}</td>
+                    <td id="patterns" ng-click="">{{ question.Answer}}</td>
+                    <td id="patterns" ng-click="">{{ question.AnswerString}}</td>
+                </tr>
+
+                
+            </table>
+
+               <div ng-show="!showQuestionsTable">
+                   {{status}}
+                   </div>
+               </div>
 
 
     <div>
+        <div>
+        <input type="text" cols="5" class="form-control" name="QuestionName" ng-model="q" placeholder="Question body..." required="" />
+        <input type="number" class="form-control" name="NumberOfAnswers" ng-model="NumberOfAnswers" placeholder="Number of answers..." required="" ng-change="OnAdding(NumberOfAnswers)"/>
+            </div>
+
+        <table ng-show="showAnswers">       
+        <tr>
+            <td>
+                <input type="text" class="form-control" name="Qone" ng-model="Answer.One" placeholder="Answer..." />
+                <input type="checkbox" name="QuestionName" ng-model="qOne" value="one" />
+            </td> 
+            <td>
+                <input type="text" class="form-control" name="Qtwo" ng-model="Answer.Two" placeholder="Answer..." />
+                <input type="checkbox" name="QuestionName" ng-model="qTwo" value="two" />
+            </td> 
+            <td>
+                <input type="text" class="form-control" name="Qthree" ng-model="Answer.Three" placeholder="Answer..." />
+                <input type="checkbox" name="QuestionName" ng-model="qThree" value="three" />
+            </td> 
+            <td>
+                <input type="text" class="form-control" name="Qfour" ng-model="Answer.Four" placeholder="Answer..." />
+                <input type="checkbox" name="QuestionName" ng-model="qFour" value="four" /> 
+            </td> 
+            </tr>
+    </table>
+        <button ng-click="AddQuestion()" type="button" class="btn btn-default btn-sm">Add question</button>
+      
         <!--form pt un nou pattern. creare > adaugare intrebari si raspunsuri + save button pt answer sheet -->
+        </div>
+        </div>
         </div>
 </div>

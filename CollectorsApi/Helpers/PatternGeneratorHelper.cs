@@ -26,19 +26,19 @@ namespace CollectorsApi.Helpers
             return sheet;
         }
 
-        public static Bitmap AddAnswerBlock(Bitmap sheet, int options, int answers, int startIndex, int coordX, int coordY)
+        public static Bitmap AddAnswerBlock(Bitmap sheet, Models.AnswerBlock answerBlock)
         {
-            var blockSize = new Size(options, answers);
+            var blockSize = new Size(answerBlock.AnswerOptionsNumber, answerBlock.Rows);
             var indexingFont = new Font("Arial", 5000 / 70);
             var answerBlockBitmap = new Bitmap(1, 1);
             var g = Graphics.FromImage(answerBlockBitmap);
             int maxWid = 0;
 
-            if (startIndex > 0)
+            if (answerBlock.FirstQuestionIndex > 0)
             {
-                for (int i = 0; i < answers; i++)
+                for (int i = 0; i < answerBlock.Rows; i++)
                 {
-                    int tw = (int)g.MeasureString((i + startIndex).ToString(), indexingFont).Width;
+                    int tw = (int)g.MeasureString((i + answerBlock.FirstQuestionIndex).ToString(), indexingFont).Width;
                     if (tw > maxWid)
                         maxWid = tw;
                 }
@@ -46,27 +46,27 @@ namespace CollectorsApi.Helpers
 
             var indBlockWid = maxWid + 5;
 
-            answerBlockBitmap = new Bitmap(indBlockWid + options * 150 + 50, answers * 150 + 50);
+            answerBlockBitmap = new Bitmap(indBlockWid + answerBlock.AnswerOptionsNumber * 150 + 50, answerBlock.Rows * 150 + 50);
             g = Graphics.FromImage(answerBlockBitmap);
             g.Clear(Color.White);
 
             g.DrawRectangle(new Pen(Brushes.Black, 4), new Rectangle(indBlockWid, 0, answerBlockBitmap.Width - indBlockWid, answerBlockBitmap.Height));
 
-            int boxWid = (int)Math.Round((double)(answerBlockBitmap.Width - indBlockWid) / options);
+            int boxWid = (int)Math.Round((double)(answerBlockBitmap.Width - indBlockWid) / answerBlock.AnswerOptionsNumber);
             int lineMargin = (int)Math.Round(boxWid * 0.4) / 2;
-            int boxHei = (int)Math.Round((double)answerBlockBitmap.Height / answers);
+            int boxHei = (int)Math.Round((double)answerBlockBitmap.Height / answerBlock.Rows);
             int lineHei = (int)Math.Round(boxHei * 0.6);
 
-            for (int j = 0; j < answers; j++)
+            for (int j = 0; j < answerBlock.Rows; j++)
             {
-                if (j < answers - 1)
+                if (j < answerBlock.Rows - 1)
                 {
                     g.DrawLine(new Pen(Brushes.Black, 2), indBlockWid + 1, boxHei * (j + 1), answerBlockBitmap.Width - 1, boxHei * (j + 1));
                 }
 
-                for (int i = 0; i < options; i++)
+                for (int i = 0; i < answerBlock.AnswerOptionsNumber; i++)
                 {
-                    if (i < options - 1)
+                    if (i < answerBlock.AnswerOptionsNumber - 1)
                     {
                         g.DrawLine(new Pen(Brushes.Black, 2),
                             new PointF(indBlockWid + (i + 1) * boxWid, boxHei * j + lineMargin),
@@ -75,9 +75,9 @@ namespace CollectorsApi.Helpers
 
                 }
 
-                if (startIndex > 0)
+                if (answerBlock.FirstQuestionIndex > 0)
                 {
-                    string ansNum = (startIndex + j).ToString();
+                    string ansNum = (answerBlock.FirstQuestionIndex + j).ToString();
                     int length = (int)g.MeasureString(ansNum, indexingFont).Width;
                     int indX = indBlockWid - length - 5;
                     int indTextY = (150 - indexingFont.Height) / 2;
@@ -87,7 +87,7 @@ namespace CollectorsApi.Helpers
 
             g = Graphics.FromImage(sheet);
 
-            g.DrawImage((Image)answerBlockBitmap, coordX, coordY, answerBlockBitmap.Width, answerBlockBitmap.Height);
+            g.DrawImage((Image)answerBlockBitmap, answerBlock.CoordinateX, answerBlock.CoordinateY, answerBlockBitmap.Width, answerBlockBitmap.Height);
 
             return sheet;
         }

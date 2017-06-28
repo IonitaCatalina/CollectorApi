@@ -151,6 +151,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AnswerBlock.cs" />
     <Compile Include="Models\AnswerSheet.cs" />
     <Compile Include="Models\ClassBookBindingModel.cs" />
     <Compile Include="Models\ClassBook.cs" />

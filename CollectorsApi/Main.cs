@@ -14,7 +14,10 @@ namespace CollectorsApi
     {
         private static object lockObject = new object();
         public static PatternsContext db = new PatternsContext();
-        
+
+        /// <summary>
+        /// source code : modified and updated from https://www.codeproject.com/Articles/884518/Csharp-Optical-Marks-Recognition-OMR-Engine-a-Mar
+        /// </summary>
         public static Bitmap ApplyWrap(List<AForge.IntPoint> quad, Bitmap originalIage, double scale, Pattern pattern)
         {
             //pattern witdh and height
@@ -37,6 +40,9 @@ namespace CollectorsApi
             return wrap.Apply(originalIage); // wrap 
         }
 
+        /// <summary>
+        /// source code : modified and updated from https://www.codeproject.com/Articles/884518/Csharp-Optical-Marks-Recognition-OMR-Engine-a-Mar
+        /// </summary>
         public static int GetTestScore(Pattern pattern, Photo photo, List<PatternAnswerSheet> answerSheet)
         {
             var ms = new MemoryStream(photo.Image);
@@ -173,6 +179,9 @@ namespace CollectorsApi
             return scores;
         }
 
+        /// <summary>
+        /// source code : modified from https://www.codeproject.com/Articles/884518/Csharp-Optical-Marks-Recognition-OMR-Engine-a-Mar
+        /// </summary>
         public static System.Drawing.Image CutOutBlockImage(System.Drawing.Image image, Size sBounds, RectangleF block)
         {
             return CutOutBlockImage(image, sBounds, new Rectangle(
@@ -182,6 +191,9 @@ namespace CollectorsApi
                 (int)Math.Round(block.Height)));
         }
 
+        /// <summary>
+        /// source code : modified from https://www.codeproject.com/Articles/884518/Csharp-Optical-Marks-Recognition-OMR-Engine-a-Mar
+        /// </summary>
         public static System.Drawing.Image CutOutBlockImage(System.Drawing.Image image, Size sBounds, Rectangle block)
         {
             double xScale = (double)image.Width / sBounds.Width;
@@ -211,6 +223,9 @@ namespace CollectorsApi
             return img;
         }
 
+        /// <summary>
+        /// source code : modified from https://www.codeproject.com/Articles/884518/Csharp-Optical-Marks-Recognition-OMR-Engine-a-Mar
+        /// </summary>
         public static Bitmap[] SliceOsMarkBlock(System.Drawing.Image croppedBlock, int slices)
         {
             List<Rectangle> cropRects = new List<Rectangle>();
@@ -238,6 +253,9 @@ namespace CollectorsApi
             return bmps;
         }
 
+        /// <summary>
+        /// source code : modified from https://www.codeproject.com/Articles/884518/Csharp-Optical-Marks-Recognition-OMR-Engine-a-Mar
+        /// </summary>
         public static bool[] GetBinaryMaskedScore(Bitmap slice, int OMCount, int sheetWhite, bool overrideWhite)
         {
             //make grayscale

@@ -14,6 +14,7 @@ namespace CollectorsApi.Helpers
 
             g.Clear(Color.White);
 
+            /// images take from open source code : https://www.codeproject.com/Articles/884518/Csharp-Optical-Marks-Recognition-OMR-Engine-a-Mar
             g.DrawImage(Image.FromFile(HttpContext.Current.Server.MapPath("~/omrtemp/LC Prints.jpg")),
                 new Rectangle(new Point(100, 100), new System.Drawing.Size(150, 150)));
             g.DrawImage(Image.FromFile(HttpContext.Current.Server.MapPath("~/omrtemp/LC Prints.jpg")),
@@ -26,6 +27,9 @@ namespace CollectorsApi.Helpers
             return sheet;
         }
 
+        /// <summary>
+        /// source code : modified and updated from https://www.codeproject.com/Articles/884518/Csharp-Optical-Marks-Recognition-OMR-Engine-a-Mar
+        /// </summary>
         public static Bitmap AddAnswerBlock(Bitmap sheet, Models.AnswerBlock answerBlock)
         {
             var blockSize = new Size(answerBlock.AnswerOptionsNumber, answerBlock.Rows);

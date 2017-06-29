@@ -196,7 +196,7 @@
     </Compile>
     <Compile Include="Helpers\PatternGeneratorHelper.cs" />
     <Compile Include="Helpers\PreprocessingHelper.cs" />
-    <Compile Include="ImagePreparationHelper.cs" />
+    <Compile Include="Helpers\ImagePreparationHelper.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Managers\UserManager.cs" />
     <Compile Include="Migrations\201705271413495_v0.cs" />
@@ -304,8 +304,6 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Media\download.jpg" />
-    <Content Include="Media\samurai.jpg" />
     <None Include="Properties\PublishProfiles\test.pubxml" />
     <Content Include="omrtemp\LC Prints.jpg" />
     <Content Include="omrtemp\lc.jpg" />

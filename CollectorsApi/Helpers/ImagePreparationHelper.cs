@@ -8,10 +8,10 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Web;
 
-namespace CollectorsApi
+namespace CollectorsApi.Helpers
 {
     /// <summary>
-    /// source code : https://www.codeproject.com/Articles/884518/Csharp-Optical-Marks-Recognition-OMR-Engine-a-Mar
+    /// source code taken, modified and updated from : https://www.codeproject.com/Articles/884518/Csharp-Optical-Marks-Recognition-OMR-Engine-a-Mar
     /// </summary>
     public static class ImagePreparationHelper
     {

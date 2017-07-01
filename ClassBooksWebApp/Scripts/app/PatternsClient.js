@@ -90,6 +90,7 @@ UserApp.controller('PatternsController', ['$scope', 'PatternsService', '$window'
         $scope.SaveAnswerSheet = function () { // $scope.newquestions trimis din html
             patternsService.SaveAnswerSheet($scope.newQuestions).then(function successCallback(response) {
                 GetPatterns();
+                $scope.newQuestions = Array(0);
             }, function errorCallback(response) {
             });
         };

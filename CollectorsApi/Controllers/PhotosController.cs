@@ -1,6 +1,8 @@
-﻿using CollectorsApi.Models;
+﻿using CollectorsApi.Helpers;
+using CollectorsApi.Models;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -49,10 +51,9 @@ namespace CollectorsApi.Controllers
 
             if (ModelState.IsValid)
             {
-                var testPhoto = db.Photos.FirstOrDefault(x => x.Name == "testImage");
                 var answers = db.AnswerSheets.Where(x => x.PatternId == photo.PatternId && string.IsNullOrEmpty(x.StudentId)).ToList();
 
-                photo.Grade = Main.GetTestScore(pattern, testPhoto, answers);
+                photo.Grade = Main.GetTestScore(pattern, photo, answers);
                 db.Photos.Add(photo);
                 db.SaveChanges();
                 return Ok();

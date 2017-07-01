@@ -307,9 +307,12 @@
     <None Include="Properties\PublishProfiles\test.pubxml" />
     <Content Include="omrtemp\LC Prints.jpg" />
     <Content Include="omrtemp\lc.jpg" />
+    <Content Include="omrtemp\pattern x.png" />
     <Content Include="omrtemp\RC Prints.jpg" />
     <Content Include="omrtemp\rc.jpg" />
     <Content Include="omrtemp\testImage.jpg" />
+    <Content Include="omrtemp\testscaled.jpg" />
+    <Content Include="omrtemp\xtest.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

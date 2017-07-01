@@ -1,6 +1,11 @@
 ﻿
+using CollectorsApi.Models;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
 using System.Web;
 
 namespace CollectorsApi.Helpers
@@ -30,8 +35,10 @@ namespace CollectorsApi.Helpers
         /// <summary>
         /// source code : modified and updated from https://www.codeproject.com/Articles/884518/Csharp-Optical-Marks-Recognition-OMR-Engine-a-Mar
         /// </summary>
-        public static Bitmap AddAnswerBlock(Bitmap sheet, Models.AnswerBlock answerBlock)
+        public static Pattern AddAnswerBlock(Pattern pattern)
         {
+            var answerBlock = pattern.AnswerBlocks.First();
+
             var blockSize = new Size(answerBlock.AnswerOptionsNumber, answerBlock.Rows);
             var indexingFont = new Font("Arial", 5000 / 70);
             var answerBlockBitmap = new Bitmap(1, 1);
@@ -89,11 +96,17 @@ namespace CollectorsApi.Helpers
                 }
             }
 
+            var ms = new MemoryStream(pattern.Image);
+            var sheet = new Bitmap(ms);
             g = Graphics.FromImage(sheet);
+
 
             g.DrawImage((Image)answerBlockBitmap, answerBlock.CoordinateX, answerBlock.CoordinateY, answerBlockBitmap.Width, answerBlockBitmap.Height);
 
-            return sheet;
+            answerBlock.Width = answerBlockBitmap.Width;
+            answerBlock.Height = answerBlockBitmap.Height;
+
+            return new Pattern { Image = sheet.ToByteArray(ImageFormat.Jpeg), AnswerBlocks = new List<AnswerBlock> { answerBlock } };
         }
     }
 }

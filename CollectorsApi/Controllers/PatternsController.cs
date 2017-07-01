@@ -130,8 +130,17 @@ namespace CollectorsApi.Controllers
                     answerBlock.CoordinateX = pattern.AnswerBlocks.Last().CoordinateX + 1000;
                     answerBlock.CoordinateY = 500;
 
-                    var ms = new MemoryStream(pattern.Image);
-                    pattern.Image = PatternGeneratorHelper.AddAnswerBlock(new Bitmap(ms), answerBlock).ToByteArray(ImageFormat.Jpeg);
+                    var tempPattern = new Pattern {
+                        Image = pattern.Image,
+                        AnswerBlocks = new List<AnswerBlock>()
+                    };
+
+                    tempPattern.AnswerBlocks.Add(answerBlock);
+
+                    var result = PatternGeneratorHelper.AddAnswerBlock(tempPattern);
+
+                    pattern.Image = result.Image;
+                    pattern.AnswerBlocks.Add(result.AnswerBlocks.First());
 
                     foreach (var sheet in sheets)
                     {
@@ -146,8 +155,18 @@ namespace CollectorsApi.Controllers
                     answerBlock.CoordinateX = 500;
                     answerBlock.CoordinateY = 500;
 
-                    var ms = new MemoryStream(pattern.Image);
-                    pattern.Image = PatternGeneratorHelper.AddAnswerBlock(new Bitmap(ms), answerBlock).ToByteArray(ImageFormat.Jpeg);
+                    var tempPattern = new Pattern
+                    {
+                        Image = pattern.Image,
+                        AnswerBlocks = new List<AnswerBlock>()
+                    };
+
+                    tempPattern.AnswerBlocks.Add(answerBlock);
+
+                    var result = PatternGeneratorHelper.AddAnswerBlock(tempPattern);
+
+                    pattern.Image = result.Image;
+                    pattern.AnswerBlocks.Add(result.AnswerBlocks.First());
 
                     foreach (var sheet in sheets)
                     {

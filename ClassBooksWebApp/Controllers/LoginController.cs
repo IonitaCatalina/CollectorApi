@@ -20,6 +20,12 @@ namespace ClassBooksWebApp.Controllers
             return View();
         }
 
+        public ActionResult Logout()
+        {
+            Session["UserId"] = null;
+            return Redirect("/Login/Login");
+        }
+
         public async Task<ActionResult> LoginUser(User user)
         {
             var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");

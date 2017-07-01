@@ -5,8 +5,10 @@ using CollectorsApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Web;
 
 namespace CollectorsApi
 {
@@ -63,9 +65,10 @@ namespace CollectorsApi
 
 
             extd = ApplyWrap(wrapPoints, new Bitmap(PreprocessingHelper.CamImage), PreprocessingHelper.ImageProcessScale, pattern);
-
             //extracted sheet
             var recogImg = (Image)extd;
+
+            var scores = 0;
 
             lock (lockObject)
             {
@@ -75,6 +78,7 @@ namespace CollectorsApi
                     var BinaryMaskedOMs = new bool[list[i].Rows, list[i].AnswerOptionsNumber];
 
                     var CroppedImage = CutOutBlockImage(recogImg, new Size(pattern.Width, pattern.Height), new RectangleF(list[i].CoordinateX, list[i].CoordinateY, list[i].Width, list[i].Height));
+
                     var CroppedAnswerLines = SliceOsMarkBlock(CroppedImage, list[i].Rows);
 
                     //rate the marks according to the dimensions collected from database and image extracted/cropped
@@ -91,11 +95,11 @@ namespace CollectorsApi
 
                     var partialSheet = answerSheet.GetRange(list[i].FirstQuestionIndex-1, list[i].Rows).ToList();
 
-                    var scores = list[i].RateScores(partialSheet, BinaryMaskedOMs, false);
+                    scores += list[i].RateScores(partialSheet, BinaryMaskedOMs, false);
                 }
             }
 
-            return 10;
+            return scores;
         }
 
         public static List<List<bool>> ProcessSheetAnswers(List<PatternAnswerSheet> partialSheet)
@@ -116,7 +120,7 @@ namespace CollectorsApi
             return answers;
         }
 
-        public static double[] RateScores(this AnswerBlock ansBlock, List<PatternAnswerSheet> partialSheet, bool[,] BinaryMaskedOMs, bool multipleAnswers)
+        public static int RateScores(this AnswerBlock ansBlock, List<PatternAnswerSheet> partialSheet, bool[,] BinaryMaskedOMs, bool multipleAnswers)
         {
             double[] scores = new double[ansBlock.Rows];
 
@@ -138,7 +142,7 @@ namespace CollectorsApi
                     if (!hasMarked)
                         scores[i] = 0;
                     else if (allRight)
-                        scores[i] = 4;
+                        scores[i] = 1;
                     else
                         scores[i] = -1;
                 }

@@ -11,6 +11,7 @@ namespace ClassBooksWebApp.Models
         public string LastName { get; set; }
         public string FullName { get; set; }
         public string RoleName { get; set; }
+        public List<string> Roles { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
 

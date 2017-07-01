@@ -40,7 +40,8 @@
                 <td><button ng-click="Edit(pattern)" type="button" class="btn btn-link btn-sm">Edit</button></td>
                 <td id="patterns" ng-click="GetImage(pattern.Id)">{{ pattern.Name }}</td>
                 <td id="patterns" ng-click="GetImage(pattern.Id)">{{ pattern.AnswerSheet.length }}</td>
-                <td><button ng-click="AddQuestions(pattern)" type="button" class="btn btn-default btn-sm">Add Questions</button></td>
+                <td><button ng-click="Publish(pattern.Id)" ng-show="!pattern.Published" type="button" class="btn btn-default btn-sm">Publish</button></td>
+                <td><button ng-show="pattern.Published" type="button" class="btn btn-default btn-sm" disabled>Published</button></td>
                 <td><button ng-click="RemovePattern(pattern.Id)" type="button" class="btn btn-primary btn-sm">Remove</button></td>
             </tr>
         </table>

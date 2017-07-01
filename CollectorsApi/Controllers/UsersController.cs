@@ -55,7 +55,10 @@ namespace CollectorsApi.Controllers
             if (user != null)
             {
                 var check = await AppUserManager.FindAsync(user.UserName, getUserModel.Password);
-                if(check != null) return Ok(user.Id.ToString());
+                if (check != null)
+                {
+                    return Ok(this.TheModelFactory.Create(user));
+                }
                 return BadRequest("Incorrect e-mail or password! ");
             }
 

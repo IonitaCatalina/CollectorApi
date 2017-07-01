@@ -26,7 +26,7 @@ namespace ClassBooksWebApp.Controllers
             return Redirect("/Login/Login");
         }
 
-        public async Task<ActionResult> LoginUser(User user)
+        public async Task<JsonResult> LoginUser(User user)
         {
             var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
 
@@ -34,11 +34,12 @@ namespace ClassBooksWebApp.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                Session["UserId"] = response.Content.ReadAsStringAsync().Result;
-                return Content(Session["UserId"].ToString());
+                var json = JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result);
+                Session["UserId"] = json.Id;
+                return Json(json, JsonRequestBehavior.AllowGet); ;
             }
 
-            return View("Login", "Login");
+            return null;
         }
 
         public async Task<User> GetUserById(string id)
@@ -86,6 +87,13 @@ namespace ClassBooksWebApp.Controllers
         {
             if (!string.IsNullOrEmpty(Session["UserId"].ToString())) return Content(Session["UserId"].ToString());
             return HttpNotFound();
+        }
+
+        private bool IsStudent(User json)
+        {
+            if (json.Roles.Contains("Student"))
+                return true;
+            return false;
         }
     }
 }

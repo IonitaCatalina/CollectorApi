@@ -122,7 +122,7 @@ namespace CollectorsApi
 
         public static int RateScores(this AnswerBlock ansBlock, List<PatternAnswerSheet> partialSheet, bool[,] BinaryMaskedOMs, bool multipleAnswers)
         {
-            double[] scores = new double[ansBlock.Rows];
+            int scores = 0;
 
             var answerArray = ProcessSheetAnswers(partialSheet);
 
@@ -140,11 +140,11 @@ namespace CollectorsApi
                             hasMarked = true;
                     }
                     if (!hasMarked)
-                        scores[i] = 0;
+                        scores += 0;
                     else if (allRight)
-                        scores[i] = 1;
+                        scores += 1;
                     else
-                        scores[i] = -1;
+                        scores += -1;
                 }
                 else
                 {
@@ -173,9 +173,9 @@ namespace CollectorsApi
                     }
 
                     if (match > 0)
-                        scores[i] = match;
+                        scores += (int)match;
                     else
-                        scores[i] = 0;
+                        scores += 0;
                    
                 }
             }

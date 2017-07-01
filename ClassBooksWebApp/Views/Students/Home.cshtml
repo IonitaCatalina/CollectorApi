@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Student Info";
+    Layout = "~/Views/Shared/_LoggedLayout.cshtml";
+}
+
+<h2>Published patterns</h2>
+
+@section scripts{
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/app/PatternsClient.js"></script>
+    <script src="~/Scripts/app/PatternsService.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+}
+
+<div ng-app="UserApp" class="row">
+    <div ng-controller="PatternsController">
+        <!--tabel cu toate patternurile-->
+         
+            <table id="students" style="width: 50%; float:left">
+                <tr id="patterns">
+                    <th id="patterns">Name</th>
+                    <th id="patterns">No. of questions</th>
+                    <td></td>
+                </tr>
+                <tr id="patterns" ng-repeat="pattern in publishedPatterns | orderBy:'Name'">
+                    <td id="patterns" ng-show="pattern.Published" ng-click="GetImage(pattern.Id)">{{ pattern.Name }}</td>
+                    <td id="patterns" ng-show="pattern.Published" ng-click="GetImage(pattern.Id)">{{ pattern.AnswerSheet.length }}</td>    
+                    <td ng-show="pattern.Published"><button ng-click="ShowPublishedPatternDetails(pattern)" type="button" class="btn btn-primary btn-sm">Details</button></td>
+                </tr>
+            </table>
+
+
+        <div ng-show="showPatternDetails" style="width: 50%; float:right;">        
+
+            <div ng-show="showQuestionsTable">
+                <table id="students">
+                    <tr id="patterns">
+                        <th id="patterns">Question body</th>
+                        <th id="patterns">Correct/Incorrect</th>
+                        <th id="patterns">Answers</th>
+                    </tr>
+                    <tr id="patterns" ng-repeat="question in questions | orderBy:'Name'">
+                        <td id="patterns" ng-click="">{{ question.Question }}</td>
+                        <td id="patterns" ng-click="">{{ question.Answer}}</td>
+                        <td id="patterns" ng-click="">{{ question.AnswerString}}</td>
+                    </tr>
+
+
+                </table>
+
+                <div ng-show="!showQuestionsTable">
+                    {{status}}
+                </div>
+            </div>
+    </div>
+</div>
+</div>

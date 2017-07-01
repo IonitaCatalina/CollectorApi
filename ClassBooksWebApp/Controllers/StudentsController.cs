@@ -2,9 +2,6 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Configuration;
@@ -51,6 +48,11 @@ namespace ClassBooksWebApp.Controllers
             }
 
             return null;
+        }
+
+        public ActionResult Home()
+        {
+            return View();
         }
     }
 }

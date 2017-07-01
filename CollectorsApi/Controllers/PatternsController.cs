@@ -18,7 +18,21 @@ namespace CollectorsApi.Controllers
 
         public Pattern Get(int id)
         {
-            return db.Patterns.FirstOrDefault(x=>x.Id == id);
+            return db.Patterns.Include("AnswerSheet").FirstOrDefault(x=>x.Id == id);
+        }
+        
+        [Route("published")]
+        public IEnumerable<Pattern> Get()
+        {
+            var patterns = db.Patterns.Include("AnswerSheet");
+            foreach (var pattern in patterns)
+            {
+                foreach (var answersheet in pattern.AnswerSheet)
+                {
+                    answersheet.Pattern = null;
+                }
+            }
+            return patterns;
         }
 
         [Route("~/api/{id:guid}/patterns")]
@@ -34,6 +48,20 @@ namespace CollectorsApi.Controllers
                 }    
             }
             return patterns;
+        }
+
+        [Route("~/api/patterns/publish/{id:int}")]
+        public IHttpActionResult Publish(int id)
+        {
+           var pattern = db.Patterns.FirstOrDefault(x => x.Id == id);
+
+            if (pattern != null)
+            {
+                pattern.Published = true;
+                db.SaveChanges();
+                return Ok();
+            }
+            return BadRequest();
         }
 
         [Route("~/api/patterns/{id:int}/answerBlocks")]

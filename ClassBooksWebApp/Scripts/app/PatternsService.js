@@ -22,9 +22,18 @@
         return $http.get('/Patterns/GetPatternImage/'+id);
     }
 
+    patternsService.GetPublishedPatterns = function () {
+        return $http.get('/Patterns/GetPublishedPatterns/');
+    }
+
     patternsService.SaveAnswerSheet = function (sheet) {
         return $http.post('/Patterns/AddAnswerSheet', sheet);
     };
+
+    patternsService.PublishPattern = function (id) {
+        return $http.post('/Patterns/Publish/' + id);
+    };
+
     return patternsService;
 
 }]);

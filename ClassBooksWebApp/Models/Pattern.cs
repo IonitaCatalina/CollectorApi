@@ -13,7 +13,8 @@ namespace ClassBooksWebApp.Models
 
         public double MaxSizeRatio { get; set; }
         public double MinSizeRatio { get; set; }
-
+        
+        public bool Published { get; set; }
 
         public string TeacherId { get; set; }
         public User Teacher { get; set; }

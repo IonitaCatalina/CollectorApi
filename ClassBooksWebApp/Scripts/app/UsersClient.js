@@ -11,10 +11,15 @@ UserApp.controller('UsersController', ['$scope', 'UsersService', '$window', func
 
         usersService.Login(JSON.stringify(userData))
             .then(function successCallback(response) {
-                $scope.session = response.data;
-                window.location.pathname = 'ClassBook/Index';
+                $scope.result = angular.fromJson(response.data);
+                $scope.session = $scope.result.Id;
+                if ($scope.result.Roles[0] === 'Student')
+                    window.location.pathname = 'Students/Home';
+                else
+                    window.location.pathname = 'ClassBook/Index';
                 $scope.status = 'Logged in!';
             }, function errorCallback(response) {
+                window.location.pathname = 'Login/Login';
                 $scope.status = 'Could not log in user with current credentials!';
             });
     }

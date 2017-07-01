@@ -19,6 +19,8 @@ namespace CollectorsApi.Models
         public double MaxSizeRatio { get; set; }
         public double MinSizeRatio { get; set; }
 
+        public bool Published { get; set; }
+
         public virtual ICollection<AnswerBlock> AnswerBlocks { get; set; }
 
 

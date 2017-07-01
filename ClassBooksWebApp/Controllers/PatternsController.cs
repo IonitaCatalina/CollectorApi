@@ -46,6 +46,38 @@ namespace ClassBooksWebApp.Controllers
             return null;
         }
 
+        [HttpGet]
+        public async Task<JsonResult> GetPublishedPatterns()
+        {
+            var response = await _apiClient.GetAsync(new Uri(_serviceUrl + "/api/patterns/published"));
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var items = JsonConvert.DeserializeObject<List<Pattern>>(content);
+
+                foreach (var item in items)
+                {
+                    item.Image = null;
+                }
+                return Json(items, JsonRequestBehavior.AllowGet);
+            }
+
+            return null;
+        }
+
+        public async Task<HttpStatusCodeResult> Publish(int id)
+        {
+            var response = await _apiClient.PostAsync(new Uri(string.Format(_serviceUrl + "{0}/{1}", "/api/patterns/publish", id)), null);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
         public async Task<JsonResult> GetPatternImage(int id)
         {
             var response = await _apiClient.GetAsync(new Uri(string.Format(_serviceUrl + "/api/patterns/pattern/{0}", id)));

@@ -158,6 +158,7 @@
     <Compile Include="Models\Pattern.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\PhotoBindingModel.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1051,6 +1052,8 @@
     <Content Include="Views\ClassBook\Index.cshtml" />
     <Content Include="Views\Patterns\Index.cshtml" />
     <Content Include="Views\Shared\_LoggedLayout.cshtml" />
+    <Content Include="Views\Students\Home.cshtml" />
+    <Content Include="Views\Shared\_LoggedStudentsLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

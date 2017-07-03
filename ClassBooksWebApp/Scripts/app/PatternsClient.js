@@ -96,6 +96,8 @@ UserApp.controller('PatternsController', ['$scope', 'PatternsService', '$window'
 
     $scope.Back = function () {
         $scope.showPatternDetails = false;
+        $scope.newQuestions = Array(0);
+        $scope.questions = Array(0);
     }
 
     $scope.AddQuestion = function () {

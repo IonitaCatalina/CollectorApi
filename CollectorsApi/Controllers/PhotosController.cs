@@ -35,7 +35,17 @@ namespace CollectorsApi.Controllers
         [Route("~/api/user/{id:int}/photo")]
         public Photo GetPhoto(int id)
         {
-            return db.Photos.FirstOrDefault(x => x.Id == id);
+            var photo = db.Photos.FirstOrDefault(x => x.Id == id);
+
+            using (var ms = new MemoryStream(photo.Image))
+            {
+                var bmp = new Bitmap(ms);
+
+                var scaled = new Bitmap(bmp, new Size(bmp.Width/2, bmp.Height/2));
+                photo.Image = PreprocessingHelper.ToByteArray(scaled, ImageFormat.Jpeg);
+
+                return photo;
+            }
 
         }
 

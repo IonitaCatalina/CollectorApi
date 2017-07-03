@@ -45,6 +45,7 @@ namespace CollectorsApi.Controllers
                 foreach (var answersheet in pattern.AnswerSheet)
                 {
                     answersheet.Pattern = null;
+                    pattern.Image = null;
                 }    
             }
             return patterns;

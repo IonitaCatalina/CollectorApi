@@ -26,7 +26,7 @@ namespace CollectorsApi
             double ratio = Math.Max((double)originalIage.Width / (double)pattern.Width, (double)originalIage.Height / (double)pattern.Height);
             ratio *= scale;
             AForge.Imaging.Filters.QuadrilateralTransformation wrap = new AForge.Imaging.Filters.QuadrilateralTransformation(quad);
-            wrap.UseInterpolation = false; //perspective wrap only, no binary.
+            wrap.UseInterpolation = false;
             Size sr = new Size() {
                 Width = pattern.Width,
                 Height = pattern.Height
@@ -75,27 +75,24 @@ namespace CollectorsApi
                 for (int i = 0; i < pattern.AnswerBlocks.Count; i++)
                 {
                     var list = pattern.AnswerBlocks.ToList();
-                    var BinaryMaskedOMs = new bool[list[i].Rows, list[i].AnswerOptionsNumber];
+                    var givenAnswers = new bool[list[i].Rows, list[i].AnswerOptionsNumber];
 
                     var CroppedImage = CutOutBlockImage(recogImg, new Size(pattern.Width, pattern.Height), new RectangleF(list[i].CoordinateX, list[i].CoordinateY, list[i].Width, list[i].Height));
 
                     var CroppedAnswerLines = SliceOsMarkBlock(CroppedImage, list[i].Rows);
 
-                    //rate the marks according to the dimensions collected from database and image extracted/cropped
                     for (int j = 0; j < list[i].Rows; j++)
                     {
-                        //initialize a temp array for current line of current block. (see current depth of 2 for loops)
-                        bool[] tempSlice = GetBinaryMaskedScore(new Bitmap(CroppedAnswerLines[j]), list[i].AnswerOptionsNumber, 0, false);
-                        //rate current mark of current line of current block. (see current depth of 3 for loops)
+                        bool[] tempSlice = GetBinaryScore(new Bitmap(CroppedAnswerLines[j]), list[i].AnswerOptionsNumber, 0, false);
                         for (int k = 0; k < tempSlice.Length; k++)
                         {
-                            BinaryMaskedOMs[j, k] = tempSlice[k];
+                            givenAnswers[j, k] = tempSlice[k];
                         }
                     }
 
                     var partialSheet = answerSheet.GetRange(list[i].FirstQuestionIndex-1, list[i].Rows).ToList();
 
-                    scores += list[i].RateScores(partialSheet, BinaryMaskedOMs, false);
+                    scores += list[i].RateScores(partialSheet, givenAnswers, false);
                 }
             }
 
@@ -120,7 +117,7 @@ namespace CollectorsApi
             return answers;
         }
 
-        public static int RateScores(this AnswerBlock ansBlock, List<PatternAnswerSheet> partialSheet, bool[,] BinaryMaskedOMs, bool multipleAnswers)
+        public static int RateScores(this AnswerBlock ansBlock, List<PatternAnswerSheet> partialSheet, bool[,] givenAnswers, bool multipleAnswers)
         {
             int scores = 0;
 
@@ -134,9 +131,9 @@ namespace CollectorsApi
                     bool hasMarked = false;
                     for (int j = 0; j < partialSheet[i].Answer.Length; j++)
                     {
-                        if (BinaryMaskedOMs[i, j] != answerArray[i][j])
+                        if (givenAnswers[i, j] != answerArray[i][j])
                             allRight = false;
-                        if (BinaryMaskedOMs[i, j])
+                        if (givenAnswers[i, j])
                             hasMarked = true;
                     }
                     if (!hasMarked)
@@ -153,7 +150,7 @@ namespace CollectorsApi
 
                     for (int j = 0; j < answerArray[i].Count; j++)
                     {
-                        if (BinaryMaskedOMs[i, j] == answerArray[i][j])
+                        if (givenAnswers[i, j] == answerArray[i][j])
                         {
                             if (answerArray[i].Where(x => x == true).Count() > 1)
                             {
@@ -260,7 +257,7 @@ namespace CollectorsApi
         /// <summary>
         /// source code : modified from https://www.codeproject.com/Articles/884518/Csharp-Optical-Marks-Recognition-OMR-Engine-a-Mar
         /// </summary>
-        public static bool[] GetBinaryMaskedScore(Bitmap slice, int OMCount, int sheetWhite, bool overrideWhite)
+        public static bool[] GetBinaryScore(Bitmap slice, int OMCount, int sheetWhite, bool overrideWhite)
         {
             //make grayscale
             Grayscale gsf = new Grayscale(0.2989, 0.5870, 0.1140);

@@ -229,33 +229,31 @@ namespace CollectorsApi.Helpers
 
             Bitmap bmp1 = imageToBeCompared.ToManagedImage(), bmp2 = referenceImage.ToManagedImage();
 
-            //var count  means the count of those which succeeded the match
-            //var tCount means the count of those which were considered worthy of counting
             int count = 0, tcount = referenceImage.Width * referenceImage.Height;
-            //run a simple bi-dimensional loop with variables x and y.
+
             for (int y = 0; y < imageToBeCompared.Height; y++)
                 for (int x = 0; x < imageToBeCompared.Width; x++)
                 {
                     Color c1 = imageToBeCompared.GetPixel(x, y), c2 = referenceImage.GetPixel(x, y);
 
-                    int a1 = (c1.R + c1.G + c1.B) / 3; // take Arithmetic mean for no reason
-                    int a2 = (c2.R + c2.G + c2.B) / 3; // take Arithmetic mean for no reason
+                    int a1 = (c1.R + c1.G + c1.B) / 3; 
+                    int a2 = (c2.R + c2.G + c2.B) / 3; 
 
-                    if ((a1 < 127) == (a2 < 127)) // if both look dark or both look bright
+                    if ((a1 < 127) == (a2 < 127))
                     {
-                        if (a2 > 127) // if both look bright (a1 will also be > 127)
-                            count++;    //both match. consider it a match
-                        else // both a1, a2 will be <= 127. . .don't consider there as a competition pair
+                        if (a2 > 127)
+                            count++;  
+                        else 
                             tcount--;
                     }
                     else
-                        //if doesn't match, don't leave it here, deduct score for mismatch
+                       
                         count--;
                 }
-            //both count and tCount and count should be almost equal for a perfect match
-            count += tcount; // means count should have been doubled by adding it
-            count /= 2;     //means, count should have been brought back to first value. 
-            // with the above assumption, in which count and tcount were the same,
+           
+            count += tcount;
+            count /= 2;   
+           
             bool returnValue = (count * 100) / tcount >= 50;
 
 
